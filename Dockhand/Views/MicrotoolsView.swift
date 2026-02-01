@@ -240,6 +240,7 @@ struct MicrotoolWebView: View {
             // WebView
             WebViewRepresentable(
                 url: tool.url,
+                toolId: tool.id,
                 isLoading: $isLoading,
                 canGoBack: $canGoBack,
                 canGoForward: $canGoForward,
@@ -254,6 +255,7 @@ struct MicrotoolWebView: View {
 
 struct WebViewRepresentable: NSViewRepresentable {
     let url: URL
+    let toolId: String  // Use this to track which tool we're showing
     @Binding var isLoading: Bool
     @Binding var canGoBack: Bool
     @Binding var canGoForward: Bool
@@ -280,7 +282,8 @@ struct WebViewRepresentable: NSViewRepresentable {
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
         
-        // Store reference
+        // Store reference and current tool ID
+        context.coordinator.currentToolId = toolId
         DispatchQueue.main.async {
             webViewRef = webView
         }
@@ -292,8 +295,9 @@ struct WebViewRepresentable: NSViewRepresentable {
     }
     
     func updateNSView(_ webView: WKWebView, context: Context) {
-        // Only reload if URL changed
-        if webView.url != url {
+        // Only reload if we switched to a different tool
+        if context.coordinator.currentToolId != toolId {
+            context.coordinator.currentToolId = toolId
             webView.load(URLRequest(url: url))
         }
     }
@@ -304,23 +308,36 @@ struct WebViewRepresentable: NSViewRepresentable {
     
     class Coordinator: NSObject, WKNavigationDelegate {
         var parent: WebViewRepresentable
+        var currentToolId: String = ""
         
         init(_ parent: WebViewRepresentable) {
             self.parent = parent
         }
         
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-            parent.isLoading = true
+            DispatchQueue.main.async {
+                self.parent.isLoading = true
+            }
         }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            parent.isLoading = false
-            parent.canGoBack = webView.canGoBack
-            parent.canGoForward = webView.canGoForward
+            DispatchQueue.main.async {
+                self.parent.isLoading = false
+                self.parent.canGoBack = webView.canGoBack
+                self.parent.canGoForward = webView.canGoForward
+            }
         }
         
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-            parent.isLoading = false
+            DispatchQueue.main.async {
+                self.parent.isLoading = false
+            }
+        }
+        
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            DispatchQueue.main.async {
+                self.parent.isLoading = false
+            }
         }
     }
     
