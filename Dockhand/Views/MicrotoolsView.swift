@@ -268,6 +268,9 @@ struct WebViewRepresentable: NSViewRepresentable {
         // Allow JavaScript
         config.defaultWebpagePreferences.allowsContentJavaScript = true
         
+        // Enable JavaScript console logging in Xcode
+        config.preferences.setValue(true, forKey: "developerExtrasEnabled")
+        
         // Inject script to bypass CORS detection
         if injectCORSBypass {
             let script = WKUserScript(
@@ -280,6 +283,7 @@ struct WebViewRepresentable: NSViewRepresentable {
         
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
+        webView.uiDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
         
         // Store reference and current tool ID
@@ -306,7 +310,7 @@ struct WebViewRepresentable: NSViewRepresentable {
         Coordinator(self)
     }
     
-    class Coordinator: NSObject, WKNavigationDelegate {
+    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         var parent: WebViewRepresentable
         var currentToolId: String = ""
         
@@ -315,64 +319,101 @@ struct WebViewRepresentable: NSViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+            print("[MicrotoolsWebView] Started loading: \(webView.url?.absoluteString ?? "unknown")")
             DispatchQueue.main.async {
                 self.parent.isLoading = true
             }
         }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            print("[MicrotoolsWebView] Finished loading: \(webView.url?.absoluteString ?? "unknown")")
             DispatchQueue.main.async {
                 self.parent.isLoading = false
                 self.parent.canGoBack = webView.canGoBack
                 self.parent.canGoForward = webView.canGoForward
             }
+            
+            // Debug: Check if our flag was set
+            webView.evaluateJavaScript("window.__DOCKHAND_NATIVE__") { result, error in
+                print("[MicrotoolsWebView] __DOCKHAND_NATIVE__ = \(String(describing: result))")
+            }
         }
         
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+            print("[MicrotoolsWebView] Navigation failed: \(error.localizedDescription)")
             DispatchQueue.main.async {
                 self.parent.isLoading = false
             }
         }
         
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            print("[MicrotoolsWebView] Provisional navigation failed: \(error.localizedDescription)")
             DispatchQueue.main.async {
                 self.parent.isLoading = false
             }
+        }
+        
+        // Capture JavaScript console.log messages
+        func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+            print("[MicrotoolsWebView JS Alert] \(message)")
+            completionHandler()
         }
     }
     
     // JavaScript to make the app think it's running locally (bypass CORS detection)
     private var corsBypassScript: String {
         """
-        // Override the isGitHubPages and getApiBase functions
-        // This makes the microtools use the direct API URL since native apps don't have CORS
+        console.log('[Dockhand] Injecting native app flag...');
+        
+        // Set the flag immediately
         window.__DOCKHAND_NATIVE__ = true;
+        console.log('[Dockhand] __DOCKHAND_NATIVE__ set to:', window.__DOCKHAND_NATIVE__);
+        
+        // Override fetch to log requests
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            console.log('[Dockhand] Fetch:', args[0]);
+            return originalFetch.apply(this, args);
+        };
         
         // Override after DOM loads to catch late-defined functions
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('[Dockhand] DOMContentLoaded - checking functions...');
+            console.log('[Dockhand] __DOCKHAND_NATIVE__ =', window.__DOCKHAND_NATIVE__);
+            
             // Override isGitHubPages to return false
             if (typeof window.isGitHubPages === 'function') {
+                console.log('[Dockhand] Overriding isGitHubPages');
                 window.isGitHubPages = function() { return false; };
             }
             
             // Override getApiBase to use direct API (native app has no CORS)
             if (typeof window.getApiBase === 'function') {
+                console.log('[Dockhand] Overriding getApiBase');
                 window.getApiBase = function() { return 'https://shipyard.bot/api'; };
             }
         });
         
         // Also try to set before any scripts run
         Object.defineProperty(window, 'isGitHubPages', {
-            value: function() { return false; },
+            value: function() { 
+                console.log('[Dockhand] isGitHubPages called, returning false');
+                return false; 
+            },
             writable: true,
             configurable: true
         });
         
         Object.defineProperty(window, 'getApiBase', {
-            value: function() { return 'https://shipyard.bot/api'; },
+            value: function() { 
+                console.log('[Dockhand] getApiBase called, returning direct API');
+                return 'https://shipyard.bot/api'; 
+            },
             writable: true,
             configurable: true
         });
+        
+        console.log('[Dockhand] Injection complete');
         """
     }
 }
