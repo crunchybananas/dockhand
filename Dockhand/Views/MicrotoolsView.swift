@@ -51,7 +51,8 @@ final class ShipyardAPISchemeHandler: NSObject, WKURLSchemeHandler, @unchecked S
             return
         }
         
-        print("[ShipyardProxy] \(urlSchemeTask.request.httpMethod ?? "GET") \(realURL)")
+        let method = urlSchemeTask.request.httpMethod ?? "GET"
+        print("[ShipyardProxy] \(method) \(realURL)")
         
         var request = URLRequest(url: realURL)
         request.httpMethod = urlSchemeTask.request.httpMethod
@@ -68,7 +69,7 @@ final class ShipyardAPISchemeHandler: NSObject, WKURLSchemeHandler, @unchecked S
             }
             
             if let error = error {
-                print("[ShipyardProxy] Error: \(error.localizedDescription)")
+                print("[ShipyardProxy] Error: \(error.localizedDescription) for \(realURL)")
                 urlSchemeTask.didFailWithError(error)
                 return
             }
@@ -80,6 +81,7 @@ final class ShipyardAPISchemeHandler: NSObject, WKURLSchemeHandler, @unchecked S
                 headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
                 headers["Access-Control-Allow-Headers"] = "*"
                 
+                print("[ShipyardProxy] Response \(response.statusCode) for \(realURL)")
                 if let modifiedResponse = HTTPURLResponse(
                     url: url, // Use original URL so WebKit is happy
                     statusCode: response.statusCode,
@@ -372,6 +374,8 @@ struct WebViewRepresentable: NSViewRepresentable {
             )
             config.userContentController.addUserScript(script)
         }
+
+        config.userContentController.add(context.coordinator, name: "dockhandConsole")
         
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
@@ -402,7 +406,7 @@ struct WebViewRepresentable: NSViewRepresentable {
         Coordinator(self)
     }
     
-    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
+    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
         var parent: WebViewRepresentable
         var currentToolId: String = ""
         
@@ -428,6 +432,17 @@ struct WebViewRepresentable: NSViewRepresentable {
             // Debug: Check if our flag was set
             webView.evaluateJavaScript("window.__DOCKHAND_NATIVE__") { result, error in
                 print("[MicrotoolsWebView] __DOCKHAND_NATIVE__ = \(String(describing: result))")
+            }
+        }
+
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            guard message.name == "dockhandConsole" else { return }
+            if let payload = message.body as? [String: Any],
+               let level = payload["level"] as? String,
+               let args = payload["args"] {
+                print("[MicrotoolsWebView Console] \(level): \(args)")
+            } else {
+                print("[MicrotoolsWebView Console] \(message.body)")
             }
         }
         
@@ -456,10 +471,32 @@ struct WebViewRepresentable: NSViewRepresentable {
     private var proxyInjectionScript: String {
         """
         (function() {
+            function sendToHost(level, args) {
+                try {
+                    window.webkit.messageHandlers.dockhandConsole.postMessage({
+                        level,
+                        args: Array.from(args).map(v => {
+                            try { return typeof v === 'string' ? v : JSON.stringify(v); }
+                            catch (e) { return String(v); }
+                        })
+                    });
+                } catch (e) {}
+            }
+
+            const originalConsole = window.console || {};
+            ['log', 'warn', 'error', 'info', 'debug'].forEach((level) => {
+                const orig = originalConsole[level] || function() {};
+                console[level] = function() {
+                    sendToHost(level, arguments);
+                    return orig.apply(originalConsole, arguments);
+                };
+            });
+
             console.log('[Dockhand] Installing native API proxy...');
             
             // Mark as running in native app
             window.__DOCKHAND_NATIVE__ = true;
+            console.log('[Dockhand] __DOCKHAND_NATIVE__ set to true');
             
             const SHIPYARD_ORIGIN = 'https://shipyard.bot';
             const PROXY_ORIGIN = 'shipyard-proxy://shipyard.bot';
@@ -518,6 +555,8 @@ struct WebViewRepresentable: NSViewRepresentable {
                 }
                 return originalXHROpen.call(this, method, url, ...rest);
             };
+
+            console.log('[Dockhand] Proxy hooks installed. fetch=', typeof originalFetch, 'xhr=', typeof XMLHttpRequest.prototype.open);
             
             console.log('[Dockhand] Native API proxy installed');
         })();
