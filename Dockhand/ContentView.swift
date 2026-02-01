@@ -2,6 +2,8 @@
 //  ContentView.swift
 //  Dockhand
 //
+//  Created by Cory Loken on 2/1/26.
+//
 //  Root view that switches between auth and main app
 //
 

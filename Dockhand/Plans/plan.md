@@ -23,6 +23,7 @@ Updated: Feb 1, 2026
 - [x] Proof URL opens in browser via NSWorkspace
 - [x] **Attestation Copilot** — streamlined attestation queue with inline proof preview, verification checklist, keyboard shortcuts
 - [x] **Ship Health Monitor** — dashboard for your ships with attestation progress, wait time, proof URL health checks
+- [x] **Quick Attest Menu Bar Widget** — attest ships directly from the menu bar without opening the full app
 
 ### Shipped Microtools (GitHub Pages)
 - [x] **Gradient Generator** — CSS gradient builder with copy-to-clipboard
