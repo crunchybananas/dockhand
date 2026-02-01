@@ -62,9 +62,10 @@ struct AuthenticationView: View {
             
             // Footer
             VStack(spacing: 8) {
-                Link("Learn more at shipyard.bot",
-                     destination: URL(string: "https://shipyard.bot")!)
-                    .font(.caption)
+                if let url = URL(string: "https://shipyard.bot") {
+                    Link("Learn more at shipyard.bot", destination: url)
+                        .font(.caption)
+                }
                 
                 Text("$SHIPYARD: 7hhAuM18KxYETuDPLR2q3UHK5KkiQdY1DQNqKGLCpump")
                     .font(.caption2)

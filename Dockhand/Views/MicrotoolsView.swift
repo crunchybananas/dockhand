@@ -122,6 +122,10 @@ struct Microtool: Identifiable, Hashable {
     let icon: String
     let url: URL
     let requiresAPI: Bool
+
+    private static func safeURL(_ string: String) -> URL {
+        URL(string: string) ?? URL(fileURLWithPath: "/")
+    }
     
     static let all: [Microtool] = [
         Microtool(
@@ -129,7 +133,7 @@ struct Microtool: Identifiable, Hashable {
             name: "Shipyard Explorer",
             description: "Platform dashboard with leaderboard & activity",
             icon: "chart.bar.fill",
-            url: URL(string: "https://crunchybananas.github.io/shipyard-microtools/explorer")!,
+            url: safeURL("https://crunchybananas.github.io/shipyard-microtools/explorer"),
             requiresAPI: true
         ),
         Microtool(
@@ -137,7 +141,7 @@ struct Microtool: Identifiable, Hashable {
             name: "Attestation Tracker",
             description: "Find ships needing attestations",
             icon: "checkmark.seal.fill",
-            url: URL(string: "https://crunchybananas.github.io/shipyard-microtools/attestation-tracker")!,
+            url: safeURL("https://crunchybananas.github.io/shipyard-microtools/attestation-tracker"),
             requiresAPI: true
         ),
         Microtool(
@@ -145,7 +149,7 @@ struct Microtool: Identifiable, Hashable {
             name: "Reputation Graph",
             description: "D3.js attestation network visualization",
             icon: "point.3.connected.trianglepath.dotted",
-            url: URL(string: "https://crunchybananas.github.io/shipyard-microtools/reputation-graph")!,
+            url: safeURL("https://crunchybananas.github.io/shipyard-microtools/reputation-graph"),
             requiresAPI: true
         ),
         Microtool(
@@ -153,7 +157,7 @@ struct Microtool: Identifiable, Hashable {
             name: "Token Lens",
             description: "JWT decoder & signature verifier",
             icon: "key.fill",
-            url: URL(string: "https://crunchybananas.github.io/shipyard-microtools/token-lens")!,
+            url: safeURL("https://crunchybananas.github.io/shipyard-microtools/token-lens"),
             requiresAPI: false
         ),
         Microtool(
@@ -161,7 +165,7 @@ struct Microtool: Identifiable, Hashable {
             name: "Gradient Generator",
             description: "CSS gradient builder with copy-to-clipboard",
             icon: "paintpalette.fill",
-            url: URL(string: "https://crunchybananas.github.io/shipyard-microtools/gradient-generator")!,
+            url: safeURL("https://crunchybananas.github.io/shipyard-microtools/gradient-generator"),
             requiresAPI: false
         ),
     ]

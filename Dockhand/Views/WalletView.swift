@@ -232,15 +232,19 @@ struct WalletView: View {
             }
             
             HStack(spacing: 12) {
-                Link(destination: URL(string: appState.tokenInfo?.jupiter ?? "https://jup.ag/swap/SOL-\(tokenContract)")!) {
-                    Label("Trade on Jupiter", systemImage: "arrow.left.arrow.right")
+                if let url = URL(string: appState.tokenInfo?.jupiter ?? "https://jup.ag/swap/SOL-\(tokenContract)") {
+                    Link(destination: url) {
+                        Label("Trade on Jupiter", systemImage: "arrow.left.arrow.right")
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .buttonStyle(.bordered)
                 
-                Link(destination: URL(string: appState.tokenInfo?.dexscreener ?? "https://dexscreener.com/solana/\(tokenContract)")!) {
-                    Label("DexScreener", systemImage: "chart.line.uptrend.xyaxis")
+                if let url = URL(string: appState.tokenInfo?.dexscreener ?? "https://dexscreener.com/solana/\(tokenContract)") {
+                    Link(destination: url) {
+                        Label("DexScreener", systemImage: "chart.line.uptrend.xyaxis")
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .buttonStyle(.bordered)
             }
             .font(.caption)
         }
@@ -266,8 +270,12 @@ struct WalletView: View {
                 InfoRow(label: "Transaction", value: claim.transactionId, monospaced: true)
             }
             
-            Link(destination: URL(string: "https://solscan.io/tx/\(claim.transactionId)")!) {
-                Label("View on Solscan", systemImage: "arrow.up.right.square")
+            Group {
+                if let url = URL(string: "https://solscan.io/tx/\(claim.transactionId)") {
+                    Link(destination: url) {
+                        Label("View on Solscan", systemImage: "arrow.up.right.square")
+                    }
+                }
             }
             .font(.caption)
         }

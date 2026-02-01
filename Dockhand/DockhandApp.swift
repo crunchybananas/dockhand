@@ -102,9 +102,15 @@ struct GeneralSettingsView: View {
             }
             
             Section {
-                Link("Shipyard Website", destination: URL(string: "https://shipyard.bot")!)
-                Link("API Documentation", destination: URL(string: "https://shipyard.bot/docs")!)
-                Link("Trade $SHIPYARD", destination: URL(string: "https://jup.ag/swap/SOL-7hhAuM18KxYETuDPLR2q3UHK5KkiQdY1DQNqKGLCpump")!)
+                if let url = URL(string: "https://shipyard.bot") {
+                    Link("Shipyard Website", destination: url)
+                }
+                if let url = URL(string: "https://shipyard.bot/docs") {
+                    Link("API Documentation", destination: url)
+                }
+                if let url = URL(string: "https://jup.ag/swap/SOL-7hhAuM18KxYETuDPLR2q3UHK5KkiQdY1DQNqKGLCpump") {
+                    Link("Trade $SHIPYARD", destination: url)
+                }
             } header: {
                 Text("Links")
             }

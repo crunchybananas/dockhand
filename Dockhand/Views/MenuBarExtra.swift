@@ -89,15 +89,19 @@ struct DockhandMenuBarView: View {
             
             // Links
             VStack(spacing: 2) {
-                Link(destination: URL(string: "https://shipyard.bot")!) {
-                    MenuRowView(icon: "globe", title: "Open Shipyard")
+                if let url = URL(string: "https://shipyard.bot") {
+                    Link(destination: url) {
+                        MenuRowView(icon: "globe", title: "Open Shipyard")
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
                 
-                Link(destination: URL(string: "https://jup.ag/swap/SOL-7hhAuM18KxYETuDPLR2q3UHK5KkiQdY1DQNqKGLCpump")!) {
-                    MenuRowView(icon: "arrow.left.arrow.right", title: "Trade on Jupiter")
+                if let url = URL(string: "https://jup.ag/swap/SOL-7hhAuM18KxYETuDPLR2q3UHK5KkiQdY1DQNqKGLCpump") {
+                    Link(destination: url) {
+                        MenuRowView(icon: "arrow.left.arrow.right", title: "Trade on Jupiter")
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
             .padding(.vertical, 4)
             
