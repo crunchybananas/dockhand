@@ -2,7 +2,7 @@
 //  MicrotoolsView.swift
 //  Dockhand
 //
-//  In-app browser for Shipyard Microtools (bypasses CORS)
+//  In-app browser for Shipyard Microtools (bypasses CORS via native proxy)
 //
 
 import SwiftUI
@@ -22,6 +22,92 @@ struct MicrotoolsView: View {
                 MicrotoolWebView(tool: tool)
             } else {
                 WelcomeView()
+            }
+        }
+    }
+}
+
+// MARK: - Native API Proxy (bypasses CORS at network level)
+
+/// Intercepts requests to shipyard-proxy:// and makes them via native URLSession
+final class ShipyardAPISchemeHandler: NSObject, WKURLSchemeHandler, @unchecked Sendable {
+    private var activeTasks: [ObjectIdentifier: URLSessionDataTask] = [:]
+    private let queue = DispatchQueue(label: "com.dockhand.schemehandler")
+    
+    func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
+        guard let url = urlSchemeTask.request.url,
+              url.scheme == "shipyard-proxy" else {
+            urlSchemeTask.didFailWithError(URLError(.badURL))
+            return
+        }
+        
+        // Convert shipyard-proxy://api/ships → https://shipyard.bot/api/ships
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        components?.scheme = "https"
+        components?.host = "shipyard.bot"
+        
+        guard let realURL = components?.url else {
+            urlSchemeTask.didFailWithError(URLError(.badURL))
+            return
+        }
+        
+        print("[ShipyardProxy] \(urlSchemeTask.request.httpMethod ?? "GET") \(realURL)")
+        
+        var request = URLRequest(url: realURL)
+        request.httpMethod = urlSchemeTask.request.httpMethod
+        request.allHTTPHeaderFields = urlSchemeTask.request.allHTTPHeaderFields
+        request.httpBody = urlSchemeTask.request.httpBody
+        
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else { return }
+            
+            self.queue.async {
+                // Check if task was cancelled
+                guard self.activeTasks[ObjectIdentifier(urlSchemeTask)] != nil else { return }
+                self.activeTasks.removeValue(forKey: ObjectIdentifier(urlSchemeTask))
+            }
+            
+            if let error = error {
+                print("[ShipyardProxy] Error: \(error.localizedDescription)")
+                urlSchemeTask.didFailWithError(error)
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                // Create response with CORS headers so WebKit accepts it
+                var headers = response.allHeaderFields as? [String: String] ?? [:]
+                headers["Access-Control-Allow-Origin"] = "*"
+                headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+                headers["Access-Control-Allow-Headers"] = "*"
+                
+                if let modifiedResponse = HTTPURLResponse(
+                    url: url, // Use original URL so WebKit is happy
+                    statusCode: response.statusCode,
+                    httpVersion: "HTTP/1.1",
+                    headerFields: headers
+                ) {
+                    urlSchemeTask.didReceive(modifiedResponse)
+                }
+            }
+            
+            if let data = data {
+                urlSchemeTask.didReceive(data)
+            }
+            
+            urlSchemeTask.didFinish()
+        }
+        
+        queue.async {
+            self.activeTasks[ObjectIdentifier(urlSchemeTask)] = task
+        }
+        
+        task.resume()
+    }
+    
+    func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
+        queue.async {
+            if let task = self.activeTasks.removeValue(forKey: ObjectIdentifier(urlSchemeTask)) {
+                task.cancel()
             }
         }
     }
@@ -262,6 +348,9 @@ struct WebViewRepresentable: NSViewRepresentable {
     @Binding var webViewRef: WKWebView?
     let injectCORSBypass: Bool
     
+    // Shared scheme handler (must persist for lifetime of webview)
+    private static let schemeHandler = ShipyardAPISchemeHandler()
+    
     func makeNSView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
         
@@ -271,10 +360,13 @@ struct WebViewRepresentable: NSViewRepresentable {
         // Enable JavaScript console logging in Xcode
         config.preferences.setValue(true, forKey: "developerExtrasEnabled")
         
-        // Inject script to bypass CORS detection
+        // Register custom scheme handler for API proxy
         if injectCORSBypass {
+            config.setURLSchemeHandler(Self.schemeHandler, forURLScheme: "shipyard-proxy")
+            
+            // Inject script that redirects API calls to our proxy scheme
             let script = WKUserScript(
-                source: corsBypassScript,
+                source: proxyInjectionScript,
                 injectionTime: .atDocumentStart,
                 forMainFrameOnly: true
             )
@@ -360,60 +452,75 @@ struct WebViewRepresentable: NSViewRepresentable {
         }
     }
     
-    // JavaScript to make the app think it's running locally (bypass CORS detection)
-    private var corsBypassScript: String {
+    // JavaScript that intercepts fetch() and redirects API calls through our native proxy
+    private var proxyInjectionScript: String {
         """
-        console.log('[Dockhand] Injecting native app flag...');
-        
-        // Set the flag immediately
-        window.__DOCKHAND_NATIVE__ = true;
-        console.log('[Dockhand] __DOCKHAND_NATIVE__ set to:', window.__DOCKHAND_NATIVE__);
-        
-        // Override fetch to log requests
-        const originalFetch = window.fetch;
-        window.fetch = function(...args) {
-            console.log('[Dockhand] Fetch:', args[0]);
-            return originalFetch.apply(this, args);
-        };
-        
-        // Override after DOM loads to catch late-defined functions
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('[Dockhand] DOMContentLoaded - checking functions...');
-            console.log('[Dockhand] __DOCKHAND_NATIVE__ =', window.__DOCKHAND_NATIVE__);
+        (function() {
+            console.log('[Dockhand] Installing native API proxy...');
             
-            // Override isGitHubPages to return false
-            if (typeof window.isGitHubPages === 'function') {
-                console.log('[Dockhand] Overriding isGitHubPages');
-                window.isGitHubPages = function() { return false; };
+            // Mark as running in native app
+            window.__DOCKHAND_NATIVE__ = true;
+            
+            const SHIPYARD_ORIGIN = 'https://shipyard.bot';
+            const PROXY_ORIGIN = 'shipyard-proxy://shipyard.bot';
+
+            function rewriteShipyardUrl(rawUrl) {
+                try {
+                    const resolved = new URL(rawUrl, window.location.href);
+                    if (resolved.origin !== SHIPYARD_ORIGIN) return rawUrl;
+                    resolved.protocol = 'shipyard-proxy:';
+                    return resolved.toString();
+                } catch (e) {
+                    return rawUrl;
+                }
             }
             
-            // Override getApiBase to use direct API (native app has no CORS)
-            if (typeof window.getApiBase === 'function') {
-                console.log('[Dockhand] Overriding getApiBase');
-                window.getApiBase = function() { return 'https://shipyard.bot/api'; };
-            }
-        });
-        
-        // Also try to set before any scripts run
-        Object.defineProperty(window, 'isGitHubPages', {
-            value: function() { 
-                console.log('[Dockhand] isGitHubPages called, returning false');
-                return false; 
-            },
-            writable: true,
-            configurable: true
-        });
-        
-        Object.defineProperty(window, 'getApiBase', {
-            value: function() { 
-                console.log('[Dockhand] getApiBase called, returning direct API');
-                return 'https://shipyard.bot/api'; 
-            },
-            writable: true,
-            configurable: true
-        });
-        
-        console.log('[Dockhand] Injection complete');
+            // Override fetch to intercept Shipyard API calls
+            const originalFetch = window.fetch;
+            window.fetch = function(input, init) {
+                let url = input;
+                if (input instanceof Request) {
+                    url = input.url;
+                }
+                
+                // Check if this is a Shipyard API call
+                if (typeof url === 'string') {
+                    const proxyUrl = rewriteShipyardUrl(url);
+                    if (proxyUrl !== url) {
+                        console.log('[Dockhand Proxy] ' + url + ' → ' + proxyUrl);
+                    
+                        if (input instanceof Request) {
+                            // Clone the request with new URL
+                            return originalFetch.call(this, proxyUrl, {
+                                method: input.method,
+                                headers: input.headers,
+                                body: input.body,
+                                mode: 'cors',
+                                credentials: input.credentials
+                            });
+                        }
+                        return originalFetch.call(this, proxyUrl, init);
+                    }
+                }
+                
+                return originalFetch.call(this, input, init);
+            };
+            
+            // Also override XMLHttpRequest for completeness
+            const originalXHROpen = XMLHttpRequest.prototype.open;
+            XMLHttpRequest.prototype.open = function(method, url, ...rest) {
+                if (typeof url === 'string') {
+                    const proxyUrl = rewriteShipyardUrl(url);
+                    if (proxyUrl !== url) {
+                        console.log('[Dockhand XHR Proxy] ' + url + ' → ' + proxyUrl);
+                        return originalXHROpen.call(this, method, proxyUrl, ...rest);
+                    }
+                }
+                return originalXHROpen.call(this, method, url, ...rest);
+            };
+            
+            console.log('[Dockhand] Native API proxy installed');
+        })();
         """
     }
 }
