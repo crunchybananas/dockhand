@@ -377,14 +377,12 @@ struct WebViewRepresentable: NSViewRepresentable {
             config.userContentController.addUserScript(script)
         }
 
-        config.userContentController.add(context.coordinator, name: "dockhandConsole")
         config.userContentController.add(context.coordinator, name: "dockhandFetch")
         
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
-        print("[MicrotoolsWebView] JS enabled: \(config.defaultWebpagePreferences.allowsContentJavaScript)")
         context.coordinator.webView = webView
         
         // Store reference and current tool ID
@@ -427,9 +425,6 @@ struct WebViewRepresentable: NSViewRepresentable {
             }
         }
 
-        func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-            print("[MicrotoolsWebView] Committed: \(webView.url?.absoluteString ?? "unknown")")
-        }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             print("[MicrotoolsWebView] Finished loading: \(webView.url?.absoluteString ?? "unknown")")
@@ -446,19 +441,8 @@ struct WebViewRepresentable: NSViewRepresentable {
         }
 
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-            switch message.name {
-            case "dockhandConsole":
-                if let payload = message.body as? [String: Any],
-                   let level = payload["level"] as? String,
-                   let args = payload["args"] {
-                    print("[MicrotoolsWebView Console] \(level): \(args)")
-                } else {
-                    print("[MicrotoolsWebView Console] \(message.body)")
-                }
-            case "dockhandFetch":
+            if message.name == "dockhandFetch" {
                 handleDockhandFetch(message)
-            default:
-                break
             }
         }
 
@@ -474,7 +458,6 @@ struct WebViewRepresentable: NSViewRepresentable {
             let headers = (payload["headers"] as? [String: String]) ?? [:]
             let body = payload["body"] as? String
 
-            print("[Dockhand NativeFetch] \(method) \(urlString) headers=\(headers.count) body=\(body?.count ?? 0)")
 
             var request = URLRequest(url: url)
             request.httpMethod = method
@@ -501,7 +484,6 @@ struct WebViewRepresentable: NSViewRepresentable {
                 }
 
                 let bodyBase64 = data?.base64EncodedString() ?? ""
-                print("[Dockhand NativeFetch] Response \(statusCode) bytes=\(data?.count ?? 0) for \(urlString)")
                 self.sendFetchResolve(id: id, status: statusCode, headers: headers, bodyBase64: bodyBase64)
             }.resume()
         }
@@ -541,21 +523,11 @@ struct WebViewRepresentable: NSViewRepresentable {
         }
 
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            if let url = navigationAction.request.url {
-                print("[MicrotoolsWebView] Navigation action: \(navigationAction.navigationType) \(url.absoluteString)")
-            }
             decisionHandler(.allow)
         }
 
         func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-            if let url = navigationResponse.response.url {
-                print("[MicrotoolsWebView] Navigation response: \(url.absoluteString)")
-            }
             decisionHandler(.allow)
-        }
-
-        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-            print("[MicrotoolsWebView] Web content process terminated")
         }
         
         // Capture JavaScript console.log messages
@@ -569,32 +541,8 @@ struct WebViewRepresentable: NSViewRepresentable {
     private var proxyInjectionScript: String {
         """
         (function() {
-            function sendToHost(level, args) {
-                try {
-                    window.webkit.messageHandlers.dockhandConsole.postMessage({
-                        level,
-                        args: Array.from(args).map(v => {
-                            try { return typeof v === 'string' ? v : JSON.stringify(v); }
-                            catch (e) { return String(v); }
-                        })
-                    });
-                } catch (e) {}
-            }
-
-            const originalConsole = window.console || {};
-            ['log', 'warn', 'error', 'info', 'debug'].forEach((level) => {
-                const orig = originalConsole[level] || function() {};
-                console[level] = function() {
-                    sendToHost(level, arguments);
-                    return orig.apply(originalConsole, arguments);
-                };
-            });
-
-            console.log('[Dockhand] Installing native API proxy...');
-            
             // Mark as running in native app
             window.__DOCKHAND_NATIVE__ = true;
-            console.log('[Dockhand] __DOCKHAND_NATIVE__ set to true');
             
             const SHIPYARD_ORIGIN = 'https://shipyard.bot';
             const PROXY_ORIGIN = 'shipyard-proxy://shipyard.bot';
@@ -658,13 +606,8 @@ struct WebViewRepresentable: NSViewRepresentable {
                 if (input instanceof Request) {
                     url = input.url;
                 }
-                try {
-                    console.log('[Dockhand Fetch] raw url:', url);
-                } catch (e) {}
-                
                 // Check if this is a Shipyard API call
                 if (typeof url === 'string' && url.startsWith(SHIPYARD_ORIGIN)) {
-                    console.log('[Dockhand Proxy] ' + url + ' → native fetch');
                     let method = 'GET';
                     let headers = {};
                     let body = undefined;
@@ -707,22 +650,14 @@ struct WebViewRepresentable: NSViewRepresentable {
             // Also override XMLHttpRequest for completeness
             const originalXHROpen = XMLHttpRequest.prototype.open;
             XMLHttpRequest.prototype.open = function(method, url, ...rest) {
-                try {
-                    console.log('[Dockhand XHR] open', method, url);
-                } catch (e) {}
                 if (typeof url === 'string') {
                     const proxyUrl = rewriteShipyardUrl(url);
                     if (proxyUrl !== url) {
-                        console.log('[Dockhand XHR Proxy] ' + url + ' → ' + proxyUrl);
                         return originalXHROpen.call(this, method, proxyUrl, ...rest);
                     }
                 }
                 return originalXHROpen.call(this, method, url, ...rest);
             };
-
-            console.log('[Dockhand] Proxy hooks installed. fetch=', typeof originalFetch, 'xhr=', typeof XMLHttpRequest.prototype.open);
-            
-            console.log('[Dockhand] Native API proxy installed');
         })();
         """
     }
