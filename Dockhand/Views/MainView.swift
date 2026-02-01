@@ -19,6 +19,7 @@ struct MainView: View {
         case myShips = "My Ships"
         case attestQueue = "Attest Queue"
         case shipHealth = "Ship Health"
+        case microtools = "Microtools"
         case wallet = "Wallet"
         case profile = "Profile"
         
@@ -32,6 +33,7 @@ struct MainView: View {
             case .myShips: return "person.2.crop.square.stack"
             case .attestQueue: return "checkmark.seal"
             case .shipHealth: return "heart.text.square"
+            case .microtools: return "wrench.and.screwdriver"
             case .wallet: return "wallet.pass"
             case .profile: return "person.crop.circle"
             }
@@ -63,6 +65,8 @@ struct MainView: View {
                     AttestationQueueView()
                 case .shipHealth:
                     ShipHealthMonitorView()
+                case .microtools:
+                    MicrotoolsView()
                 case .wallet:
                     WalletView()
                 case .profile:
