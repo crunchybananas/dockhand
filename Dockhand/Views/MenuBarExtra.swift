@@ -116,7 +116,7 @@ struct DockhandMenuBarView: View {
     
     private var unauthenticatedMenu: some View {
         VStack(spacing: 16) {
-            Image(systemName: "ship.fill")
+            Image(systemName: "ferry.fill")
                 .font(.largeTitle)
                 .foregroundStyle(.blue)
             

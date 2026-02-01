@@ -117,7 +117,7 @@ struct GeneralSettingsView: View {
 struct AboutSettingsView: View {
     var body: some View {
         VStack(spacing: 16) {
-            Image(systemName: "ship.fill")
+            Image(systemName: "ferry.fill")
                 .font(.system(size: 64))
                 .foregroundStyle(.blue)
             

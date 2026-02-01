@@ -24,7 +24,7 @@ struct AuthenticationView: View {
         VStack(spacing: 0) {
             // Header
             VStack(spacing: 16) {
-                Image(systemName: "ship.fill")
+                Image(systemName: "ferry.fill")
                     .font(.system(size: 64))
                     .foregroundStyle(.blue)
                 
