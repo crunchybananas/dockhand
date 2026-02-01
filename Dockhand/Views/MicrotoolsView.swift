@@ -620,6 +620,9 @@ struct WebViewRepresentable: NSViewRepresentable {
                     const id = `dockhand_${Date.now()}_${fetchCounter++}`;
                     pendingFetches.set(id, { resolve, reject });
                     try {
+                        if (!window.webkit || !window.webkit.messageHandlers || !window.webkit.messageHandlers.dockhandFetch) {
+                            throw new Error('dockhandFetch handler not available');
+                        }
                         window.webkit.messageHandlers.dockhandFetch.postMessage({ id, ...payload });
                     } catch (e) {
                         pendingFetches.delete(id);
@@ -660,41 +663,38 @@ struct WebViewRepresentable: NSViewRepresentable {
                 } catch (e) {}
                 
                 // Check if this is a Shipyard API call
-                if (typeof url === 'string') {
-                    const proxyUrl = rewriteShipyardUrl(url);
-                    if (proxyUrl !== url) {
-                        console.log('[Dockhand Proxy] ' + url + ' → native fetch');
-                        let method = 'GET';
-                        let headers = {};
-                        let body = undefined;
+                if (typeof url === 'string' && url.startsWith(SHIPYARD_ORIGIN)) {
+                    console.log('[Dockhand Proxy] ' + url + ' → native fetch');
+                    let method = 'GET';
+                    let headers = {};
+                    let body = undefined;
 
-                        if (input instanceof Request) {
-                            method = input.method || 'GET';
-                            input.headers.forEach((value, key) => { headers[key] = value; });
-                            if (method !== 'GET' && method !== 'HEAD') {
-                                body = await input.clone().text();
-                            }
-                        } else if (init) {
-                            method = init.method || 'GET';
-                            if (init.headers) {
-                                if (init.headers instanceof Headers) {
-                                    init.headers.forEach((value, key) => { headers[key] = value; });
-                                } else {
-                                    headers = init.headers;
-                                }
-                            }
-                            if (init.body && method !== 'GET' && method !== 'HEAD') {
-                                body = init.body;
+                    if (input instanceof Request) {
+                        method = input.method || 'GET';
+                        input.headers.forEach((value, key) => { headers[key] = value; });
+                        if (method !== 'GET' && method !== 'HEAD') {
+                            body = await input.clone().text();
+                        }
+                    } else if (init) {
+                        method = init.method || 'GET';
+                        if (init.headers) {
+                            if (init.headers instanceof Headers) {
+                                init.headers.forEach((value, key) => { headers[key] = value; });
+                            } else {
+                                headers = init.headers;
                             }
                         }
-
-                        return sendNativeFetch({
-                            url,
-                            method,
-                            headers,
-                            body
-                        });
+                        if (init.body && method !== 'GET' && method !== 'HEAD') {
+                            body = init.body;
+                        }
                     }
+
+                    return sendNativeFetch({
+                        url,
+                        method,
+                        headers,
+                        body
+                    });
                 }
                 
                 return originalFetch.call(this, input, init);
