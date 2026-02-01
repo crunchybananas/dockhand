@@ -170,6 +170,22 @@ struct Microtool: Identifiable, Hashable {
       url: safeURL("https://crunchybananas.github.io/shipyard-microtools/gradient-generator"),
       requiresAPI: false
     ),
+    Microtool(
+      id: "url-health",
+      name: "URL Health Checker",
+      description: "Batch validate proof URLs",
+      icon: "stethoscope",
+      url: safeURL("https://crunchybananas.github.io/shipyard-microtools/url-health"),
+      requiresAPI: false
+    ),
+    Microtool(
+      id: "ship-embed",
+      name: "Ship Embed Generator",
+      description: "Embeddable badges for README & portfolio",
+      icon: "tag.fill",
+      url: safeURL("https://crunchybananas.github.io/shipyard-microtools/ship-embed"),
+      requiresAPI: false
+    ),
   ]
 }
 
