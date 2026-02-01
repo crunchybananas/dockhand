@@ -358,6 +358,8 @@ struct WebViewRepresentable: NSViewRepresentable {
         
         // Allow JavaScript
         config.defaultWebpagePreferences.allowsContentJavaScript = true
+        config.preferences.javaScriptEnabled = true
+        config.preferences.javaScriptCanOpenWindowsAutomatically = true
         
         // Enable JavaScript console logging in Xcode
         config.preferences.setValue(true, forKey: "developerExtrasEnabled")
@@ -382,6 +384,7 @@ struct WebViewRepresentable: NSViewRepresentable {
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
+        print("[MicrotoolsWebView] JS enabled: \(config.defaultWebpagePreferences.allowsContentJavaScript)")
         context.coordinator.webView = webView
         
         // Store reference and current tool ID
@@ -422,6 +425,10 @@ struct WebViewRepresentable: NSViewRepresentable {
             DispatchQueue.main.async {
                 self.parent.isLoading = true
             }
+        }
+
+        func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+            print("[MicrotoolsWebView] Committed: \(webView.url?.absoluteString ?? "unknown")")
         }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -467,6 +474,8 @@ struct WebViewRepresentable: NSViewRepresentable {
             let headers = (payload["headers"] as? [String: String]) ?? [:]
             let body = payload["body"] as? String
 
+            print("[Dockhand NativeFetch] \(method) \(urlString) headers=\(headers.count) body=\(body?.count ?? 0)")
+
             var request = URLRequest(url: url)
             request.httpMethod = method
             request.allHTTPHeaderFields = headers
@@ -477,6 +486,7 @@ struct WebViewRepresentable: NSViewRepresentable {
             URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
                 guard let self = self else { return }
                 if let error = error {
+                    print("[Dockhand NativeFetch] Error: \(error.localizedDescription) for \(urlString)")
                     self.sendFetchReject(id: id, error: error)
                     return
                 }
@@ -491,6 +501,7 @@ struct WebViewRepresentable: NSViewRepresentable {
                 }
 
                 let bodyBase64 = data?.base64EncodedString() ?? ""
+                print("[Dockhand NativeFetch] Response \(statusCode) bytes=\(data?.count ?? 0) for \(urlString)")
                 self.sendFetchResolve(id: id, status: statusCode, headers: headers, bodyBase64: bodyBase64)
             }.resume()
         }
@@ -527,6 +538,24 @@ struct WebViewRepresentable: NSViewRepresentable {
             DispatchQueue.main.async {
                 self.parent.isLoading = false
             }
+        }
+
+        func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+            if let url = navigationAction.request.url {
+                print("[MicrotoolsWebView] Navigation action: \(navigationAction.navigationType) \(url.absoluteString)")
+            }
+            decisionHandler(.allow)
+        }
+
+        func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+            if let url = navigationResponse.response.url {
+                print("[MicrotoolsWebView] Navigation response: \(url.absoluteString)")
+            }
+            decisionHandler(.allow)
+        }
+
+        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+            print("[MicrotoolsWebView] Web content process terminated")
         }
         
         // Capture JavaScript console.log messages
