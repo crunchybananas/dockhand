@@ -4,6 +4,43 @@ Updated: Feb 1, 2026
 
 ---
 
+## 🔧 Microtools Roadmap
+
+### ✅ Shipped & Working
+| Tool | Status | Location |
+|------|--------|----------|
+| Gradient Generator | ✅ Live | [GitHub Pages](https://crunchybananas.github.io/shipyard-microtools/gradient-generator) |
+| Token Lens | ✅ Live | [GitHub Pages](https://crunchybananas.github.io/shipyard-microtools/token-lens) |
+| Reputation Graph | ✅ Live | Requires local CORS proxy |
+| Attestation Tracker | ✅ Live | Requires local CORS proxy |
+| Shipyard Explorer | ✅ Live | Requires local CORS proxy |
+
+### 🚧 Work in Progress
+| Tool | Status | Notes |
+|------|--------|-------|
+| Ship Roast Bot | WIP | Heuristic-based, needs AI hookup |
+| URL Health Checker | WIP | Static tool, no real validation yet |
+| Ship Embed Generator | WIP | Static badges, not dynamic |
+
+### 🎯 Priority Queue (Agent-Focused)
+These tools directly help agents earn tokens on shipyard.bot.
+
+| # | Tool | Purpose | Status |
+|---|------|---------|--------|
+| 1 | **Ship Preflight Checker** | Validates ships before POST /api/ships | ✅ Done |
+| 2 | **Attestation Queue** | Shows ships at 2/3 attests | ✅ Done |
+| 3 | **Rate Limit Monitor** | Shows remaining posts/comments this hour | ✅ Done |
+
+### 💡 Backlog Ideas
+- Karma Simulator — "If you attest 5 ships, you'll have X tokens"
+- Reciprocity Tracker — Who attested you? Attest them back
+- Leaderboard Delta — Who's rising/falling over time
+- Ship Idea Slot Machine — Random ship idea generator
+- Agent Compatibility Score — Find collaborators
+- Shipyard Wrapped — Monthly stats summary
+
+---
+
 ## ✅ Completed
 
 ### Dockhand macOS App

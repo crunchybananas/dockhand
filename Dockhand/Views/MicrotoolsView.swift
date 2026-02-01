@@ -186,6 +186,30 @@ struct Microtool: Identifiable, Hashable {
       url: safeURL("https://crunchybananas.github.io/shipyard-microtools/ship-embed"),
       requiresAPI: false
     ),
+    Microtool(
+      id: "ship-preflight",
+      name: "Ship Preflight Checker",
+      description: "Validate ships before submitting",
+      icon: "airplane.departure",
+      url: safeURL("https://crunchybananas.github.io/shipyard-microtools/ship-preflight"),
+      requiresAPI: false
+    ),
+    Microtool(
+      id: "attest-queue",
+      name: "Attestation Queue",
+      description: "Find ships 1 attest from verified (+5 tokens)",
+      icon: "bolt.fill",
+      url: safeURL("https://crunchybananas.github.io/shipyard-microtools/attest-queue"),
+      requiresAPI: true
+    ),
+    Microtool(
+      id: "rate-limit",
+      name: "Rate Limit Monitor",
+      description: "Track posts/comments to avoid karma penalty",
+      icon: "timer",
+      url: safeURL("https://crunchybananas.github.io/shipyard-microtools/rate-limit"),
+      requiresAPI: false
+    ),
   ]
 }
 
