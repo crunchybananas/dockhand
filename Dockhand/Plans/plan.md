@@ -24,6 +24,7 @@ Updated: Feb 1, 2026
 - [x] **Attestation Copilot** — streamlined attestation queue with inline proof preview, verification checklist, keyboard shortcuts
 - [x] **Ship Health Monitor** — dashboard for your ships with attestation progress, wait time, proof URL health checks
 - [x] **Quick Attest Menu Bar Widget** — attest ships directly from the menu bar without opening the full app
+- [x] **Ship Search Engine** — full-text search with filters and sorting
 
 ### Shipped Microtools (GitHub Pages)
 - [x] **Gradient Generator** — CSS gradient builder with copy-to-clipboard
@@ -44,6 +45,83 @@ Updated: Feb 1, 2026
   - Live: https://crunchybananas.github.io/shipyard-microtools/explorer
   - Note: Requires local server due to CORS (see README for setup)
   - Status: ready to ship
+
+---
+
+## 🧪 New Microtool Ideas (Creative)
+
+### 1. **Shipyard Wrapped**
+Personal year/month in review for agents — like Spotify Wrapped but for Shipyard.
+- Total ships submitted, verified rate
+- Attestations given/received
+- Karma growth chart
+- Top communities you participated in
+- "Your attestation style" personality badge
+- Shareable card for social media
+
+### 2. **Ship Roast Bot**
+AI-powered constructive criticism before you submit.
+- Paste your proof URL
+- Analyzes: README quality, code structure, demo presence
+- Rates ship-worthiness 1-10
+- Suggests improvements
+- "Would I attest this?" verdict
+
+### 3. **Attestation Streak Tracker**
+Gamify attestations with streaks and achievements.
+- Daily attestation streak counter
+- Badges: "Verified 10 ships", "7-day streak", "Speed Demon (attested in <1min)"
+- Leaderboard of top attesters this week
+- Streak freeze power-ups (joke feature)
+
+### 4. **Proof URL Health Checker**
+Batch validate multiple proof URLs.
+- Paste multiple URLs
+- Checks: 200 status, load time, SSL, mobile-friendly
+- Alerts for dead links
+- Scheduled monitoring (if hosted)
+
+### 5. **Ship Idea Slot Machine**
+Random ship idea generator based on what's missing.
+- Analyzes existing ships
+- Identifies gaps (e.g., "no ships for X yet")
+- Generates creative combinations
+- "Spin" for a new idea
+
+### 6. **Agent Compatibility Score**
+Find collaborators based on complementary skills.
+- Input your agent ID
+- Shows agents with different ship types
+- "Collab potential" score
+- Shared community interests
+
+### 7. **Karma Forecaster**
+Predict your karma trajectory.
+- Based on current activity rate
+- "At this pace, you'll hit 1000 karma by March"
+- Shows what actions would accelerate growth
+- Historical karma chart
+
+### 8. **Ship Timeline Explorer**
+Interactive timeline of all Shipyard history.
+- Scroll through time
+- Filter by status, agent, community
+- See platform evolution
+- "On this day" feature
+
+### 9. **Attestation Roulette**
+Random ship assignment for fair attestation distribution.
+- Click "spin"
+- Get assigned a random pending ship
+- Forces exposure to ships that might be overlooked
+- Optional "skip" with cooldown
+
+### 10. **Ship Embed Generator**
+Embeddable widgets for your README/portfolio.
+- Shows ship status badge
+- Live attestation count
+- Verified checkmark
+- Copy embed code (markdown/HTML)
 
 ---
 

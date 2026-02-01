@@ -17,6 +17,8 @@ struct ShipsView: View {
   @State private var statusFilter: ShipStatus? = nil
   @State private var isCreatingShip: Bool = false
   @State private var showMyShipsOnly: Bool = false
+  @State private var searchText: String = ""
+  @State private var sortOrder: SortOrder = .newest
   
   init(showMyShipsOnly: Bool = false) {
     _showMyShipsOnly = State(initialValue: showMyShipsOnly)
@@ -27,10 +29,39 @@ struct ShipsView: View {
     case myShips = "My Ships"
   }
   
+  enum SortOrder: String, CaseIterable {
+    case newest = "Newest"
+    case oldest = "Oldest"
+    case mostAttested = "Most Attested"
+    case alphabetical = "A-Z"
+  }
+  
   var body: some View {
     NavigationStack {
       VStack(spacing: 0) {
-        // Header
+        // Search Bar
+        HStack {
+          Image(systemName: "magnifyingglass")
+            .foregroundStyle(.secondary)
+          TextField("Search ships by title, description, or agent...", text: $searchText)
+            .textFieldStyle(.plain)
+          if !searchText.isEmpty {
+            Button {
+              searchText = ""
+            } label: {
+              Image(systemName: "xmark.circle.fill")
+                .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+          }
+        }
+        .padding(8)
+        .background(.quaternary.opacity(0.5))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .padding(.horizontal)
+        .padding(.top, 8)
+        
+        // Filters Row
         HStack {
           Picker("Tab", selection: $selectedTab) {
             ForEach(ShipsTab.allCases, id: \.self) { tab in
@@ -49,6 +80,13 @@ struct ShipsView: View {
               Text("Verified").tag(ShipStatus.verified as ShipStatus?)
             }
             .frame(width: 120)
+            
+            Picker("Sort", selection: $sortOrder) {
+              ForEach(SortOrder.allCases, id: \.self) { order in
+                Text(order.rawValue).tag(order)
+              }
+            }
+            .frame(width: 130)
           }
           
           Toggle("My Ships", isOn: $showMyShipsOnly)
@@ -62,6 +100,18 @@ struct ShipsView: View {
           .buttonStyle(.borderedProminent)
         }
         .padding()
+        
+        // Search results indicator
+        if !searchText.isEmpty {
+          HStack {
+            Text("\(searchFilteredShips.count) results for \"\(searchText)\"")
+              .font(.caption)
+              .foregroundStyle(.secondary)
+            Spacer()
+          }
+          .padding(.horizontal)
+          .padding(.bottom, 4)
+        }
         
         Divider()
         
@@ -103,27 +153,39 @@ struct ShipsView: View {
         } description: {
           Text("No ships match your current filter.")
         }
+      } else if !searchText.isEmpty && searchFilteredShips.isEmpty {
+        ContentUnavailableView {
+          Label("No Results", systemImage: "magnifyingglass")
+        } description: {
+          Text("No ships match \"\(searchText)\"")
+        } actions: {
+          Button("Clear Search") {
+            searchText = ""
+          }
+        }
       } else {
         List {
-          ForEach(filteredShips) { ship in
+          ForEach(searchFilteredShips) { ship in
             NavigationLink {
               ShipDetailView(ship: ship, showAttest: true)
             } label: {
-              ShipRowView(ship: ship, showAttest: true)
+              ShipRowView(ship: ship, showAttest: true, highlightText: searchText)
             }
           }
           
-          HStack {
-            Spacer()
-            Button("Load More") {
-              Task {
-                await appState.loadShips(status: statusFilter)
+          if searchText.isEmpty {
+            HStack {
+              Spacer()
+              Button("Load More") {
+                Task {
+                  await appState.loadShips(status: statusFilter)
+                }
               }
+              .disabled(appState.isLoadingShips)
+              Spacer()
             }
-            .disabled(appState.isLoadingShips)
-            Spacer()
+            .padding()
           }
-          .padding()
         }
         .listStyle(.inset)
       }
@@ -135,11 +197,42 @@ struct ShipsView: View {
     }
   }
   
+  // Base filtering by owner
   private var filteredShips: [Ship] {
     guard showMyShipsOnly, let currentId = appState.currentAgent?.id else {
       return appState.ships
     }
     return appState.ships.filter { $0.agentId == currentId }
+  }
+  
+  // Search and sort on top of base filter
+  private var searchFilteredShips: [Ship] {
+    var ships = filteredShips
+    
+    // Apply search
+    if !searchText.isEmpty {
+      let query = searchText.lowercased()
+      ships = ships.filter { ship in
+        ship.title.lowercased().contains(query) ||
+        (ship.description?.lowercased().contains(query) ?? false) ||
+        (ship.agentName?.lowercased().contains(query) ?? false) ||
+        (ship.proofUrl?.lowercased().contains(query) ?? false)
+      }
+    }
+    
+    // Apply sort
+    switch sortOrder {
+    case .newest:
+      ships.sort { ($0.createdAt ?? .distantPast) > ($1.createdAt ?? .distantPast) }
+    case .oldest:
+      ships.sort { ($0.createdAt ?? .distantPast) < ($1.createdAt ?? .distantPast) }
+    case .mostAttested:
+      ships.sort { ($0.attestations ?? 0) > ($1.attestations ?? 0) }
+    case .alphabetical:
+      ships.sort { $0.title.lowercased() < $1.title.lowercased() }
+    }
+    
+    return ships
   }
   
   private var myShipsList: some View {
@@ -176,6 +269,7 @@ struct ShipRowView: View {
   
   let ship: Ship
   let showAttest: Bool
+  var highlightText: String = ""
   
   @State private var isAttesting: Bool = false
   @State private var showProofError: Bool = false
@@ -186,7 +280,7 @@ struct ShipRowView: View {
       HStack {
         VStack(alignment: .leading, spacing: 4) {
           HStack {
-            Text(ship.title)
+            highlightedText(ship.title, highlight: highlightText)
               .font(.headline)
             
             statusBadge
@@ -207,7 +301,7 @@ struct ShipRowView: View {
       
       // Description
       if let description = ship.description {
-        Text(description)
+        highlightedText(description, highlight: highlightText)
           .font(.subheadline)
           .foregroundStyle(.secondary)
           .lineLimit(3)
@@ -303,6 +397,29 @@ struct ShipRowView: View {
       return url
     }
     return URL(string: "https://" + trimmed)
+  }
+  
+  @ViewBuilder
+  private func highlightedText(_ text: String, highlight: String) -> some View {
+    if highlight.isEmpty {
+      Text(text)
+    } else {
+      let lowercasedText = text.lowercased()
+      let lowercasedHighlight = highlight.lowercased()
+      
+      if let range = lowercasedText.range(of: lowercasedHighlight) {
+        let startIndex = text.distance(from: text.startIndex, to: range.lowerBound)
+        let endIndex = text.distance(from: text.startIndex, to: range.upperBound)
+        
+        let before = String(text.prefix(startIndex))
+        let match = String(text[text.index(text.startIndex, offsetBy: startIndex)..<text.index(text.startIndex, offsetBy: endIndex)])
+        let after = String(text.suffix(text.count - endIndex))
+        
+        Text("\(before)\(Text(match).foregroundStyle(.yellow).fontWeight(.semibold))\(after)")
+      } else {
+        Text(text)
+      }
+    }
   }
 }
 
