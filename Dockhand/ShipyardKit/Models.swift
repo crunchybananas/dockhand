@@ -566,3 +566,140 @@ enum ShipyardError: LocalizedError {
     }
   }
 }
+
+// MARK: - Code Hosting (Ship Files)
+
+struct ShipFile: Codable, Identifiable, Sendable {
+  var id: String { filename }
+  let filename: String
+  let content: String
+  
+  init(filename: String, content: String) {
+    self.filename = filename
+    self.content = content
+  }
+}
+
+struct ShipFileInfo: Decodable, Identifiable, Sendable {
+  var id: String { filename }
+  let filename: String
+  let language: String?
+  let size: Int?
+  let lines: Int?
+  
+  enum CodingKeys: String, CodingKey {
+    case filename, language, size, lines
+  }
+}
+
+struct UploadFilesRequest: Codable, Sendable {
+  let files: [ShipFile]
+}
+
+struct ShipFilesResponse: Decodable, Sendable {
+  let files: [ShipFileInfo]
+  let totalSize: Int?
+  let totalLines: Int?
+  
+  enum CodingKeys: String, CodingKey {
+    case files
+    case totalSize = "total_size"
+    case totalLines = "total_lines"
+  }
+  
+  nonisolated init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    files = (try? container.decode([ShipFileInfo].self, forKey: .files)) ?? []
+    totalSize = try? container.decodeIfPresent(Int.self, forKey: .totalSize)
+    totalLines = try? container.decodeIfPresent(Int.self, forKey: .totalLines)
+  }
+}
+
+// MARK: - App Hosting
+
+enum AppStatus: String, Codable, Sendable {
+  case deploying = "deploying"
+  case running = "running"
+  case stopped = "stopped"
+  case errored = "errored"
+}
+
+struct App: Decodable, Identifiable, Sendable {
+  let id: String
+  let shipId: String?
+  let shipTitle: String?
+  let agentId: String?
+  let agentName: String?
+  let status: AppStatus?
+  let url: String?
+  let port: Int?
+  let runtime: String?
+  let memoryLimit: String?
+  let createdAt: Date?
+  let stoppedAt: Date?
+  
+  enum CodingKeys: String, CodingKey {
+    case id, status, url, port, runtime
+    case shipId = "ship_id"
+    case shipTitle = "ship_title"
+    case agentId = "agent_id"
+    case agentName = "agent_name"
+    case memoryLimit = "memory_limit"
+    case createdAt = "created_at"
+    case stoppedAt = "stopped_at"
+  }
+  
+  nonisolated init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    id = container.decodeStringIfPresent(forKey: .id) ?? UUID().uuidString
+    shipId = container.decodeStringIfPresent(forKey: .shipId)
+    shipTitle = try? container.decodeIfPresent(String.self, forKey: .shipTitle)
+    agentId = container.decodeStringIfPresent(forKey: .agentId)
+    agentName = try? container.decodeIfPresent(String.self, forKey: .agentName)
+    status = try? container.decodeIfPresent(AppStatus.self, forKey: .status)
+    url = try? container.decodeIfPresent(String.self, forKey: .url)
+    port = container.decodeIntIfPresent(forKey: .port)
+    runtime = try? container.decodeIfPresent(String.self, forKey: .runtime)
+    memoryLimit = try? container.decodeIfPresent(String.self, forKey: .memoryLimit)
+    createdAt = try? container.decodeIfPresent(Date.self, forKey: .createdAt)
+    stoppedAt = try? container.decodeIfPresent(Date.self, forKey: .stoppedAt)
+  }
+}
+
+struct DeployResponse: Decodable, Sendable {
+  let appId: String
+  let url: String?
+  let status: AppStatus?
+  
+  enum CodingKeys: String, CodingKey {
+    case appId = "app_id"
+    case url, status
+  }
+  
+  nonisolated init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    appId = container.decodeStringIfPresent(forKey: .appId) ?? ""
+    url = try? container.decodeIfPresent(String.self, forKey: .url)
+    status = try? container.decodeIfPresent(AppStatus.self, forKey: .status)
+  }
+}
+
+struct AppsResponse: Decodable, Sendable {
+  let apps: [App]
+  
+  enum CodingKeys: String, CodingKey { case apps }
+  
+  nonisolated init(from decoder: Decoder) throws {
+    let container = try? decoder.container(keyedBy: CodingKeys.self)
+    if let container, container.contains(.apps) {
+      apps = (try? container.decode([App].self, forKey: .apps)) ?? []
+    } else {
+      apps = (try? [App](from: decoder)) ?? []
+    }
+  }
+}
+
+struct AppLogsResponse: Decodable, Sendable {
+  let logs: String
+  let lines: Int?
+}

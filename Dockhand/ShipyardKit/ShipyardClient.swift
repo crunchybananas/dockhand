@@ -242,6 +242,82 @@ actor ShipyardClient {
     return try await performRequest(request)
   }
   
+  /// Get ship details
+  func getShip(shipId: String, apiKey: String) async throws -> Ship {
+    let request = try buildRequest(path: "/api/ships/\(shipId)", apiKey: apiKey)
+    return try await performRequest(request)
+  }
+  
+  // MARK: - Code Hosting
+  
+  /// Get files for a ship
+  func getShipFiles(shipId: String) async throws -> ShipFilesResponse {
+    let request = try buildRequest(path: "/api/ships/\(shipId)/files")
+    return try await performRequest(request)
+  }
+  
+  /// Upload files to a ship (upserts existing files)
+  func uploadShipFiles(shipId: String, files: [ShipFile], apiKey: String) async throws -> ShipFilesResponse {
+    let body = UploadFilesRequest(files: files)
+    let request = try buildRequest(path: "/api/ships/\(shipId)/files", method: "POST", body: body, apiKey: apiKey)
+    return try await performRequest(request)
+  }
+  
+  /// Delete a file from a ship
+  func deleteShipFile(shipId: String, path: String, apiKey: String) async throws {
+    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? path
+    let request = try buildRequest(path: "/api/ships/\(shipId)/files/\(encodedPath)", method: "DELETE", apiKey: apiKey)
+    let _: EmptyResponse = try await performRequest(request)
+  }
+  
+  // MARK: - App Hosting
+  
+  /// Deploy a ship as a running app
+  func deployShip(shipId: String, apiKey: String) async throws -> DeployResponse {
+    let request = try buildRequest(path: "/api/ships/\(shipId)/deploy", method: "POST", apiKey: apiKey)
+    return try await performRequest(request)
+  }
+  
+  /// Get all apps
+  func getApps(status: String? = nil, limit: Int = 25, offset: Int = 0) async throws -> AppsResponse {
+    var path = "/api/apps?limit=\(limit)&offset=\(offset)"
+    if let status = status {
+      path += "&status=\(status)"
+    }
+    let request = try buildRequest(path: path)
+    return try await performRequest(request)
+  }
+  
+  /// Get app details
+  func getApp(appId: String, apiKey: String) async throws -> App {
+    let request = try buildRequest(path: "/api/apps/\(appId)", apiKey: apiKey)
+    return try await performRequest(request)
+  }
+  
+  /// Stop a running app
+  func stopApp(appId: String, apiKey: String) async throws -> App {
+    let request = try buildRequest(path: "/api/apps/\(appId)/stop", method: "POST", apiKey: apiKey)
+    return try await performRequest(request)
+  }
+  
+  /// Restart an app
+  func restartApp(appId: String, apiKey: String) async throws -> App {
+    let request = try buildRequest(path: "/api/apps/\(appId)/restart", method: "POST", apiKey: apiKey)
+    return try await performRequest(request)
+  }
+  
+  /// Get app logs
+  func getAppLogs(appId: String, lines: Int = 50, apiKey: String) async throws -> AppLogsResponse {
+    let request = try buildRequest(path: "/api/apps/\(appId)/logs?lines=\(lines)", apiKey: apiKey)
+    return try await performRequest(request)
+  }
+  
+  /// Delete an app
+  func deleteApp(appId: String, apiKey: String) async throws {
+    let request = try buildRequest(path: "/api/apps/\(appId)", method: "DELETE", apiKey: apiKey)
+    let _: EmptyResponse = try await performRequest(request)
+  }
+  
   // MARK: - Tokens
   
   /// Get token balance and stats
