@@ -376,11 +376,13 @@ struct WebViewRepresentable: NSViewRepresentable {
         }
 
         config.userContentController.add(context.coordinator, name: "dockhandConsole")
+        config.userContentController.add(context.coordinator, name: "dockhandFetch")
         
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
+        context.coordinator.webView = webView
         
         // Store reference and current tool ID
         context.coordinator.currentToolId = toolId
@@ -409,6 +411,7 @@ struct WebViewRepresentable: NSViewRepresentable {
     class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
         var parent: WebViewRepresentable
         var currentToolId: String = ""
+        weak var webView: WKWebView?
         
         init(_ parent: WebViewRepresentable) {
             self.parent = parent
@@ -436,13 +439,79 @@ struct WebViewRepresentable: NSViewRepresentable {
         }
 
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-            guard message.name == "dockhandConsole" else { return }
-            if let payload = message.body as? [String: Any],
-               let level = payload["level"] as? String,
-               let args = payload["args"] {
-                print("[MicrotoolsWebView Console] \(level): \(args)")
-            } else {
-                print("[MicrotoolsWebView Console] \(message.body)")
+            switch message.name {
+            case "dockhandConsole":
+                if let payload = message.body as? [String: Any],
+                   let level = payload["level"] as? String,
+                   let args = payload["args"] {
+                    print("[MicrotoolsWebView Console] \(level): \(args)")
+                } else {
+                    print("[MicrotoolsWebView Console] \(message.body)")
+                }
+            case "dockhandFetch":
+                handleDockhandFetch(message)
+            default:
+                break
+            }
+        }
+
+        private func handleDockhandFetch(_ message: WKScriptMessage) {
+            guard let payload = message.body as? [String: Any],
+                  let id = payload["id"] as? String,
+                  let urlString = payload["url"] as? String,
+                  let url = URL(string: urlString) else {
+                return
+            }
+
+            let method = (payload["method"] as? String) ?? "GET"
+            let headers = (payload["headers"] as? [String: String]) ?? [:]
+            let body = payload["body"] as? String
+
+            var request = URLRequest(url: url)
+            request.httpMethod = method
+            request.allHTTPHeaderFields = headers
+            if let body = body {
+                request.httpBody = Data(body.utf8)
+            }
+
+            URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+                guard let self = self else { return }
+                if let error = error {
+                    self.sendFetchReject(id: id, error: error)
+                    return
+                }
+
+                let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+                let headerFields = (response as? HTTPURLResponse)?.allHeaderFields ?? [:]
+                var headers: [String: String] = [:]
+                for (key, value) in headerFields {
+                    if let key = key as? String {
+                        headers[key] = "\(value)"
+                    }
+                }
+
+                let bodyBase64 = data?.base64EncodedString() ?? ""
+                self.sendFetchResolve(id: id, status: statusCode, headers: headers, bodyBase64: bodyBase64)
+            }.resume()
+        }
+
+        private func sendFetchResolve(id: String, status: Int, headers: [String: String], bodyBase64: String) {
+            guard let webView = webView,
+                  let headersData = try? JSONSerialization.data(withJSONObject: headers, options: []),
+                  let headersJSON = String(data: headersData, encoding: .utf8) else { return }
+
+            let js = "window.__dockhandFetchResolve(\"\(id)\", \(status), \(headersJSON), \"\(bodyBase64)\");"
+            DispatchQueue.main.async {
+                webView.evaluateJavaScript(js, completionHandler: nil)
+            }
+        }
+
+        private func sendFetchReject(id: String, error: Error) {
+            guard let webView = webView else { return }
+            let message = error.localizedDescription.replacingOccurrences(of: "\"", with: "\\\"")
+            let js = "window.__dockhandFetchReject(\"\(id)\", \"\(message)\");"
+            DispatchQueue.main.async {
+                webView.evaluateJavaScript(js, completionHandler: nil)
             }
         }
         
@@ -514,7 +583,45 @@ struct WebViewRepresentable: NSViewRepresentable {
             
             // Override fetch to intercept Shipyard API calls
             const originalFetch = window.fetch;
-            window.fetch = function(input, init) {
+            const pendingFetches = new Map();
+            let fetchCounter = 0;
+
+            function sendNativeFetch(payload) {
+                return new Promise((resolve, reject) => {
+                    const id = `dockhand_${Date.now()}_${fetchCounter++}`;
+                    pendingFetches.set(id, { resolve, reject });
+                    try {
+                        window.webkit.messageHandlers.dockhandFetch.postMessage({ id, ...payload });
+                    } catch (e) {
+                        pendingFetches.delete(id);
+                        reject(e);
+                    }
+                });
+            }
+
+            window.__dockhandFetchResolve = function(id, status, headers, bodyBase64) {
+                const pending = pendingFetches.get(id);
+                if (!pending) return;
+                pendingFetches.delete(id);
+                try {
+                    const binary = atob(bodyBase64 || '');
+                    const bytes = new Uint8Array(binary.length);
+                    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+                    const response = new Response(bytes, { status, headers });
+                    pending.resolve(response);
+                } catch (e) {
+                    pending.reject(e);
+                }
+            };
+
+            window.__dockhandFetchReject = function(id, message) {
+                const pending = pendingFetches.get(id);
+                if (!pending) return;
+                pendingFetches.delete(id);
+                pending.reject(new Error(message || 'Native fetch failed'));
+            };
+
+            window.fetch = async function(input, init) {
                 let url = input;
                 if (input instanceof Request) {
                     url = input.url;
@@ -527,19 +634,37 @@ struct WebViewRepresentable: NSViewRepresentable {
                 if (typeof url === 'string') {
                     const proxyUrl = rewriteShipyardUrl(url);
                     if (proxyUrl !== url) {
-                        console.log('[Dockhand Proxy] ' + url + ' → ' + proxyUrl);
-                    
+                        console.log('[Dockhand Proxy] ' + url + ' → native fetch');
+                        let method = 'GET';
+                        let headers = {};
+                        let body = undefined;
+
                         if (input instanceof Request) {
-                            // Clone the request with new URL
-                            return originalFetch.call(this, proxyUrl, {
-                                method: input.method,
-                                headers: input.headers,
-                                body: input.body,
-                                mode: 'cors',
-                                credentials: input.credentials
-                            });
+                            method = input.method || 'GET';
+                            input.headers.forEach((value, key) => { headers[key] = value; });
+                            if (method !== 'GET' && method !== 'HEAD') {
+                                body = await input.clone().text();
+                            }
+                        } else if (init) {
+                            method = init.method || 'GET';
+                            if (init.headers) {
+                                if (init.headers instanceof Headers) {
+                                    init.headers.forEach((value, key) => { headers[key] = value; });
+                                } else {
+                                    headers = init.headers;
+                                }
+                            }
+                            if (init.body && method !== 'GET' && method !== 'HEAD') {
+                                body = init.body;
+                            }
                         }
-                        return originalFetch.call(this, proxyUrl, init);
+
+                        return sendNativeFetch({
+                            url,
+                            method,
+                            headers,
+                            body
+                        });
                     }
                 }
                 
