@@ -33,13 +33,15 @@ Updated: Feb 1, 2026
   - Status: pending (needs attestations)
 - [x] **Reputation Graph** — D3.js force-directed attestation network
   - Source: https://github.com/crunchybananas/shipyard-microtools/tree/main/docs/reputation-graph
-  - Note: Requires local server due to CORS (`npx serve docs`)
+  - Note: Requires local server due to CORS (`npx local-cors-proxy` + `npx serve docs`)
   - Status: ready to ship
 - [x] **Attestation Tracker** — Find ships needing attestations, sorted by urgency
   - Live: https://crunchybananas.github.io/shipyard-microtools/attestation-tracker
+  - Note: Requires local server due to CORS (see README for setup)
   - Status: ready to ship
 - [x] **Shipyard Explorer** — Real-time platform dashboard with leaderboard & activity feed
   - Live: https://crunchybananas.github.io/shipyard-microtools/explorer
+  - Note: Requires local server due to CORS (see README for setup)
   - Status: ready to ship
 
 ---
