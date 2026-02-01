@@ -35,7 +35,7 @@ final class ShipyardAPISchemeHandler: NSObject, WKURLSchemeHandler, @unchecked S
     private let queue = DispatchQueue(label: "com.dockhand.schemehandler")
     
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
-        guard let url = urlSchemeTask.request.url,
+          guard let url = urlSchemeTask.request.url,
               url.scheme == "shipyard-proxy" else {
             urlSchemeTask.didFailWithError(URLError(.badURL))
             return
@@ -51,8 +51,7 @@ final class ShipyardAPISchemeHandler: NSObject, WKURLSchemeHandler, @unchecked S
             return
         }
         
-        let method = urlSchemeTask.request.httpMethod ?? "GET"
-        print("[ShipyardProxy] \(method) \(realURL)")
+        // Keep minimal logging for proxy failures only
         
         var request = URLRequest(url: realURL)
         request.httpMethod = urlSchemeTask.request.httpMethod
@@ -81,7 +80,6 @@ final class ShipyardAPISchemeHandler: NSObject, WKURLSchemeHandler, @unchecked S
                 headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
                 headers["Access-Control-Allow-Headers"] = "*"
                 
-                print("[ShipyardProxy] Response \(response.statusCode) for \(realURL)")
                 if let modifiedResponse = HTTPURLResponse(
                     url: url, // Use original URL so WebKit is happy
                     statusCode: response.statusCode,
@@ -247,7 +245,7 @@ struct WelcomeView: View {
                 .font(.title2)
                 .fontWeight(.medium)
             
-            Text("Choose a tool from the sidebar to view it here.\nAPI-based tools work without CORS issues.")
+            Text("Choose a tool from the sidebar to view it here.\nAPI-based tools load in-app via native networking.")
                 .font(.body)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -265,6 +263,21 @@ struct MicrotoolWebView: View {
     @State private var canGoBack = false
     @State private var canGoForward = false
     @State private var webViewRef: WKWebView?
+    @State private var errorMessage: String?
+
+    private func hardReload() {
+        guard let baseURL = webViewRef?.url ?? tool.url as URL? else { return }
+        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
+        var queryItems = components?.queryItems ?? []
+        queryItems.removeAll { $0.name == "t" }
+        queryItems.append(URLQueryItem(name: "t", value: String(Int(Date().timeIntervalSince1970))))
+        components?.queryItems = queryItems
+        if let url = components?.url {
+            webViewRef?.load(URLRequest(url: url))
+        } else {
+            webViewRef?.reload()
+        }
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -287,6 +300,13 @@ struct MicrotoolWebView: View {
                     Image(systemName: "arrow.clockwise")
                 }
                 .buttonStyle(.borderless)
+                .help("Reload")
+
+                Button(action: { hardReload() }) {
+                    Image(systemName: "arrow.clockwise.circle")
+                }
+                .buttonStyle(.borderless)
+                .help("Hard reload")
                 
                 Divider()
                     .frame(height: 16)
@@ -298,9 +318,22 @@ struct MicrotoolWebView: View {
                     .fontWeight(.medium)
                 
                 if tool.requiresAPI {
-                    Text("• API")
+                    Text("API")
                         .font(.caption)
                         .foregroundStyle(.green)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.green.opacity(0.15))
+                        .clipShape(Capsule())
+                        .help("Uses Shipyard API")
+                } else {
+                    Text("Offline")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.secondary.opacity(0.15))
+                        .clipShape(Capsule())
                 }
                 
                 Spacer()
@@ -324,17 +357,50 @@ struct MicrotoolWebView: View {
             .background(.bar)
             
             Divider()
-            
-            // WebView
-            WebViewRepresentable(
-                url: tool.url,
-                toolId: tool.id,
-                isLoading: $isLoading,
-                canGoBack: $canGoBack,
-                canGoForward: $canGoForward,
-                webViewRef: $webViewRef,
-                injectCORSBypass: tool.requiresAPI
-            )
+
+            ZStack {
+                // WebView
+                WebViewRepresentable(
+                    url: tool.url,
+                    toolId: tool.id,
+                    isLoading: $isLoading,
+                    canGoBack: $canGoBack,
+                    canGoForward: $canGoForward,
+                    errorMessage: $errorMessage,
+                    webViewRef: $webViewRef,
+                    injectCORSBypass: tool.requiresAPI
+                )
+
+                if let errorMessage = errorMessage {
+                    VStack(spacing: 12) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.system(size: 32))
+                            .foregroundStyle(.yellow)
+                        Text("Couldn’t load \(tool.name)")
+                            .font(.headline)
+                        Text(errorMessage)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: 360)
+                        HStack(spacing: 12) {
+                            Button("Reload") {
+                                webViewRef?.reload()
+                            }
+                            Button("Hard reload") {
+                                hardReload()
+                            }
+                            Button("Open in Safari") {
+                                NSWorkspace.shared.open(tool.url)
+                            }
+                        }
+                    }
+                    .padding(24)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .shadow(radius: 10)
+                }
+            }
         }
     }
 }
@@ -347,6 +413,7 @@ struct WebViewRepresentable: NSViewRepresentable {
     @Binding var isLoading: Bool
     @Binding var canGoBack: Bool
     @Binding var canGoForward: Bool
+    @Binding var errorMessage: String?
     @Binding var webViewRef: WKWebView?
     let injectCORSBypass: Bool
     
@@ -358,7 +425,6 @@ struct WebViewRepresentable: NSViewRepresentable {
         
         // Allow JavaScript
         config.defaultWebpagePreferences.allowsContentJavaScript = true
-        config.preferences.javaScriptEnabled = true
         config.preferences.javaScriptCanOpenWindowsAutomatically = true
         
         // Enable JavaScript console logging in Xcode
@@ -419,24 +485,19 @@ struct WebViewRepresentable: NSViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-            print("[MicrotoolsWebView] Started loading: \(webView.url?.absoluteString ?? "unknown")")
             DispatchQueue.main.async {
                 self.parent.isLoading = true
+                self.parent.errorMessage = nil
             }
         }
 
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            print("[MicrotoolsWebView] Finished loading: \(webView.url?.absoluteString ?? "unknown")")
             DispatchQueue.main.async {
                 self.parent.isLoading = false
                 self.parent.canGoBack = webView.canGoBack
                 self.parent.canGoForward = webView.canGoForward
-            }
-            
-            // Debug: Check if our flag was set
-            webView.evaluateJavaScript("window.__DOCKHAND_NATIVE__") { result, error in
-                print("[MicrotoolsWebView] __DOCKHAND_NATIVE__ = \(String(describing: result))")
+                self.parent.errorMessage = nil
             }
         }
 
@@ -509,16 +570,16 @@ struct WebViewRepresentable: NSViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-            print("[MicrotoolsWebView] Navigation failed: \(error.localizedDescription)")
             DispatchQueue.main.async {
                 self.parent.isLoading = false
+                self.parent.errorMessage = error.localizedDescription
             }
         }
         
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-            print("[MicrotoolsWebView] Provisional navigation failed: \(error.localizedDescription)")
             DispatchQueue.main.async {
                 self.parent.isLoading = false
+                self.parent.errorMessage = error.localizedDescription
             }
         }
 
