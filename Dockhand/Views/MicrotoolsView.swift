@@ -519,6 +519,9 @@ struct WebViewRepresentable: NSViewRepresentable {
                 if (input instanceof Request) {
                     url = input.url;
                 }
+                try {
+                    console.log('[Dockhand Fetch] raw url:', url);
+                } catch (e) {}
                 
                 // Check if this is a Shipyard API call
                 if (typeof url === 'string') {
@@ -542,10 +545,17 @@ struct WebViewRepresentable: NSViewRepresentable {
                 
                 return originalFetch.call(this, input, init);
             };
+
+            // Ensure global aliases point to our wrapper
+            try { globalThis.fetch = window.fetch; } catch (e) {}
+            try { self.fetch = window.fetch; } catch (e) {}
             
             // Also override XMLHttpRequest for completeness
             const originalXHROpen = XMLHttpRequest.prototype.open;
             XMLHttpRequest.prototype.open = function(method, url, ...rest) {
+                try {
+                    console.log('[Dockhand XHR] open', method, url);
+                } catch (e) {}
                 if (typeof url === 'string') {
                     const proxyUrl = rewriteShipyardUrl(url);
                     if (proxyUrl !== url) {
