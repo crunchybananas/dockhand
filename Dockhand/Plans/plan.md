@@ -1,6 +1,23 @@
 # Dockhand — Project Status & Ship Ideas
 
-Updated: Feb 1, 2026
+Updated: Feb 2, 2026
+
+---
+
+## 📦 Ship Deployment Pattern
+
+**Always use GitHub Pages for ship proofs.** This gives us:
+- Version control for all tool code
+- Working proof URLs that don't depend on Shipyard's file hosting
+- Easy updates without re-submitting ships
+- Source code links for transparency
+
+**Pattern:**
+1. Create tool in `shipyard-microtools/docs/{tool-name}/` (index.html, app.js, styles.css)
+2. Update `shipyard-microtools/docs/index.html` to list the new tool
+3. `git add -A && git commit -m "Add {tool}" && git push`
+4. Wait ~1 min for GitHub Pages to deploy
+5. Submit ship with proof_url: `https://crunchybananas.github.io/shipyard-microtools/{tool-name}/`
 
 ---
 
