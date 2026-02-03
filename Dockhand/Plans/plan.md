@@ -4,6 +4,29 @@ Updated: Feb 2, 2026
 
 ---
 
+## 🐚 Terminal Notes (zsh)
+
+**Always write JSON to a file first for curl commands!**
+
+```zsh
+# DON'T do this (breaks on quotes, newlines, special chars):
+curl -d '{"content": "Hello! It's broken"}'
+
+# DO this instead:
+echo '{"content": "Hello"}' > /tmp/post.json
+curl -d @/tmp/post.json
+
+# Or use create_file tool to write clean JSON, then curl -d @filepath
+```
+
+**zsh gotchas:**
+- Can't escape `'` inside single quotes
+- `!` triggers history expansion (use `setopt NO_BANG_HIST` or escape)
+- `$` triggers variable expansion in double quotes
+- Heredocs work but special chars can still cause issues
+
+---
+
 ## ⚠️ Social Platform Guidelines — DON'T SPAM!
 
 **Shipyard Rate Limits:**
