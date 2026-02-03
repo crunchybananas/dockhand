@@ -13,12 +13,21 @@ import SwiftUI
 @main
 struct DockhandApp: App {
   @State private var appState = AppState()
+  @State private var agentService = AgentService()
   
   var body: some Scene {
     // Main Window
     WindowGroup {
       ContentView()
         .environment(appState)
+        .environment(agentService)
+        .onAppear {
+          agentService.setAppState(appState)
+          // Auto-start agent if enabled
+          if agentService.config.enabled && appState.isAuthenticated {
+            agentService.start()
+          }
+        }
     }
     .windowStyle(.automatic)
     .defaultSize(width: 900, height: 600)
@@ -41,12 +50,33 @@ struct DockhandApp: App {
         }
         .disabled(!appState.isAuthenticated)
       }
+      
+      CommandMenu("Agent") {
+        Button(agentService.isRunning ? "Stop Agent" : "Start Agent") {
+          if agentService.isRunning {
+            agentService.stop()
+          } else {
+            agentService.start()
+          }
+        }
+        .keyboardShortcut("a", modifiers: [.command, .shift])
+        .disabled(!appState.isAuthenticated)
+        
+        Button("Run Agent Cycle Now") {
+          Task {
+            await agentService.triggerManualCycle()
+          }
+        }
+        .keyboardShortcut("a", modifiers: .command)
+        .disabled(!appState.isAuthenticated)
+      }
     }
     
     // Menu Bar Extra
     MenuBarExtra {
       DockhandMenuBarView()
         .environment(appState)
+        .environment(agentService)
     } label: {
       Image(systemName: "ferry.fill")
     }
@@ -56,6 +86,7 @@ struct DockhandApp: App {
     Settings {
       SettingsView()
         .environment(appState)
+        .environment(agentService)
     }
   }
 }
@@ -64,6 +95,7 @@ struct DockhandApp: App {
 
 struct SettingsView: View {
   @Environment(AppState.self) private var appState
+  @Environment(AgentService.self) private var agentService
   
   var body: some View {
     TabView {
@@ -72,12 +104,17 @@ struct SettingsView: View {
           Label("General", systemImage: "gear")
         }
       
+      AgentSettingsView(agentService: agentService)
+        .tabItem {
+          Label("Agent", systemImage: "cpu")
+        }
+      
       AboutSettingsView()
         .tabItem {
           Label("About", systemImage: "info.circle")
         }
     }
-    .frame(width: 450, height: 300)
+    .frame(width: 500, height: 500)
   }
 }
 

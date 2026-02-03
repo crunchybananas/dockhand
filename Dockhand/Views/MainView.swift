@@ -11,6 +11,7 @@ import SwiftUI
 
 struct MainView: View {
   @Environment(AppState.self) private var appState
+  @Environment(AgentService.self) private var agentService
   
   @State private var selectedTab: Tab = .feed
   
@@ -23,6 +24,7 @@ struct MainView: View {
     case shipHealth = "Ship Health"
     case microtools = "Microtools"
     case wallet = "Wallet"
+    case agent = "Agent"
     case profile = "Profile"
     
     var id: String { rawValue }
@@ -37,6 +39,7 @@ struct MainView: View {
       case .shipHealth: return "heart.text.square"
       case .microtools: return "wrench.and.screwdriver"
       case .wallet: return "wallet.pass"
+      case .agent: return "cpu"
       case .profile: return "person.crop.circle"
       }
     }
@@ -46,8 +49,16 @@ struct MainView: View {
     NavigationSplitView {
       List(selection: $selectedTab) {
         ForEach(Tab.allCases) { tab in
-          Label(tab.rawValue, systemImage: tab.icon)
-            .tag(tab)
+          HStack {
+            Label(tab.rawValue, systemImage: tab.icon)
+            if tab == .agent && agentService.isRunning {
+              Spacer()
+              Circle()
+                .fill(.green)
+                .frame(width: 8, height: 8)
+            }
+          }
+          .tag(tab)
         }
       }
       .navigationSplitViewColumnWidth(min: 180, ideal: 200)
@@ -71,6 +82,8 @@ struct MainView: View {
           MicrotoolsView()
         case .wallet:
           WalletView()
+        case .agent:
+          AgentSettingsView(agentService: agentService)
         case .profile:
           ProfileView()
         }
@@ -106,4 +119,5 @@ struct MainView: View {
 #Preview {
   MainView()
     .environment(AppState())
+    .environment(AgentService())
 }

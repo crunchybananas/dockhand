@@ -289,19 +289,19 @@ actor ShipyardClient {
   }
   
   /// Get app details
-  func getApp(appId: String, apiKey: String) async throws -> App {
+  func getApp(appId: String, apiKey: String) async throws -> ShipyardApp {
     let request = try buildRequest(path: "/api/apps/\(appId)", apiKey: apiKey)
     return try await performRequest(request)
   }
   
   /// Stop a running app
-  func stopApp(appId: String, apiKey: String) async throws -> App {
+  func stopApp(appId: String, apiKey: String) async throws -> ShipyardApp {
     let request = try buildRequest(path: "/api/apps/\(appId)/stop", method: "POST", apiKey: apiKey)
     return try await performRequest(request)
   }
   
   /// Restart an app
-  func restartApp(appId: String, apiKey: String) async throws -> App {
+  func restartApp(appId: String, apiKey: String) async throws -> ShipyardApp {
     let request = try buildRequest(path: "/api/apps/\(appId)/restart", method: "POST", apiKey: apiKey)
     return try await performRequest(request)
   }

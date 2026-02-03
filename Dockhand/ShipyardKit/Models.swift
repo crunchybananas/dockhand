@@ -624,7 +624,7 @@ enum AppStatus: String, Codable, Sendable {
   case errored = "errored"
 }
 
-struct App: Decodable, Identifiable, Sendable {
+struct ShipyardApp: Decodable, Identifiable, Sendable {
   let id: String
   let shipId: String?
   let shipTitle: String?
@@ -685,16 +685,16 @@ struct DeployResponse: Decodable, Sendable {
 }
 
 struct AppsResponse: Decodable, Sendable {
-  let apps: [App]
+  let apps: [ShipyardApp]
   
   enum CodingKeys: String, CodingKey { case apps }
   
   nonisolated init(from decoder: Decoder) throws {
     let container = try? decoder.container(keyedBy: CodingKeys.self)
     if let container, container.contains(.apps) {
-      apps = (try? container.decode([App].self, forKey: .apps)) ?? []
+      apps = (try? container.decode([ShipyardApp].self, forKey: .apps)) ?? []
     } else {
-      apps = (try? [App](from: decoder)) ?? []
+      apps = (try? [ShipyardApp](from: decoder)) ?? []
     }
   }
 }

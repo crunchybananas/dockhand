@@ -36,6 +36,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
-        .environment(AppState())
+  ContentView()
+    .environment(AppState())
+    .environment(AgentService())
 }
