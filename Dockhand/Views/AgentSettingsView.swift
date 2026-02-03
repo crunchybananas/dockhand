@@ -12,6 +12,10 @@ import SwiftUI
 struct AgentSettingsView: View {
   @Bindable var agentService: AgentService
   @State private var showingActionLog = false
+  @State private var llmApiKey = ""
+  @State private var isGeneratingShip = false
+  
+  private let llmService = LLMService()
   
   var body: some View {
     Form {
@@ -95,10 +99,20 @@ struct AgentSettingsView: View {
         Toggle("Auto-Attest Ships", isOn: $agentService.config.autoAttest)
         Toggle("Auto-Comment on Posts", isOn: $agentService.config.autoComment)
         Toggle("Auto-Create Ships", isOn: $agentService.config.autoCreateShips)
+        
+        Button("Generate Ship Now") {
+          Task {
+            isGeneratingShip = true
+            _ = await agentService.generateShipNow()
+            isGeneratingShip = false
+          }
+        }
+        .buttonStyle(.bordered)
+        .disabled(isGeneratingShip || !llmService.hasAPIKey)
       } header: {
         Text("Autonomous Features")
       } footer: {
-        Text("Auto-Create Ships will use AI to generate new microtools. Use with caution!")
+        Text("Auto-Create Ships will use AI to generate new microtools. Requires LLM API key.")
       }
       
       // MARK: - LLM Settings Section
@@ -111,13 +125,34 @@ struct AgentSettingsView: View {
         TextField("Model", text: $agentService.config.llmModel)
           .textFieldStyle(.roundedBorder)
         
-        SecureField("API Key", text: .constant(""))  // TODO: Store in Keychain
-          .textFieldStyle(.roundedBorder)
-          .disabled(true)
+        HStack {
+          if llmService.hasAPIKey {
+            Text("API Key configured ✓")
+              .foregroundStyle(.green)
+            Spacer()
+            Button("Remove") {
+              try? llmService.deleteAPIKey()
+            }
+            .buttonStyle(.bordered)
+            .tint(.red)
+          } else {
+            SecureField("API Key", text: $llmApiKey)
+              .textFieldStyle(.roundedBorder)
+            Button("Save") {
+              guard !llmApiKey.isEmpty else { return }
+              try? llmService.setAPIKey(llmApiKey)
+              llmApiKey = ""
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(llmApiKey.isEmpty)
+          }
+        }
         
-        Text("LLM integration coming soon - currently using template-based responses")
-          .font(.caption)
-          .foregroundStyle(.secondary)
+        if !llmService.hasAPIKey {
+          Text("Enter your \(agentService.config.llmProvider == "openai" ? "OpenAI" : "Anthropic") API key to enable LLM features")
+            .font(.caption)
+            .foregroundStyle(.secondary)
+        }
       } header: {
         Text("LLM Configuration")
       }

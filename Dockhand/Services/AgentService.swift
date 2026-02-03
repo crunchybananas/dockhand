@@ -474,17 +474,86 @@ final class AgentService {
   
   // MARK: - Ship Creation
   
+  private let llmService = LLMService()
+  
   private func maybeCreateShip(apiKey: String) async {
-    // Placeholder for autonomous ship creation
-    // This would involve:
-    // 1. LLM generating an idea
-    // 2. LLM generating HTML/CSS/JS code
-    // 3. Writing files to the microtools directory
-    // 4. Git commit and push
-    // 5. Submitting to Shipyard
+    guard config.autoCreateShips && ledger.canCreateShip() else { return }
     
-    // For now, log that we would create a ship
-    statusMessage = "Ship creation not yet implemented"
+    statusMessage = "Generating new ship..."
+    
+    let generator = ShipGenerator(llmService: llmService)
+    
+    do {
+      guard let ship = try await generator.generateShip(submit: true, apiKey: apiKey) else {
+        statusMessage = "Ship generation returned nil"
+        return
+      }
+      
+      ledger.recordShipCreation()
+      log(action: AgentAction(
+        type: .shipCreation,
+        targetId: ship.shipId ?? "pending",
+        targetTitle: ship.idea.title,
+        detail: "Generated and submitted: \(ship.proofUrl)",
+        success: true
+      ))
+      
+      statusMessage = "Created ship: \(ship.idea.title)"
+    } catch {
+      log(action: AgentAction(
+        type: .shipCreation,
+        targetId: "failed",
+        targetTitle: "Ship Generation",
+        detail: "Failed: \(error.localizedDescription)",
+        success: false
+      ))
+      statusMessage = "Ship creation failed: \(error.localizedDescription)"
+    }
+  }
+  
+  /// Manually trigger ship generation
+  func generateShipNow() async -> GeneratedShip? {
+    guard let apiKey = KeychainService.getAPIKey() else {
+      statusMessage = "No API key"
+      return nil
+    }
+    guard ledger.canCreateShip() else {
+      statusMessage = "Rate limit: can't create ship right now"
+      return nil
+    }
+    
+    statusMessage = "Generating new ship..."
+    
+    let generator = ShipGenerator(llmService: llmService)
+    
+    do {
+      guard let ship = try await generator.generateShip(submit: true, apiKey: apiKey) else {
+        statusMessage = "Ship generation returned nil"
+        return nil
+      }
+      
+      ledger.recordShipCreation()
+      log(action: AgentAction(
+        type: .shipCreation,
+        targetId: ship.shipId ?? "pending",
+        targetTitle: ship.idea.title,
+        detail: "Generated and submitted: \(ship.proofUrl)",
+        success: true
+      ))
+      
+      statusMessage = "Created ship: \(ship.idea.title)"
+      return ship
+    } catch {
+      log(action: AgentAction(
+        type: .shipCreation,
+        targetId: "failed",
+        targetTitle: "Ship Generation",
+        detail: "Failed: \(error.localizedDescription)",
+        success: false
+      ))
+      statusMessage = "Ship creation failed: \(error.localizedDescription)"
+      return nil
+    }
   }
   
   // MARK: - Manual Triggers
