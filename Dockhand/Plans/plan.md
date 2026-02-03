@@ -33,6 +33,33 @@ Updated: Feb 2, 2026
 - ❌ Minor fixes or tweaks
 - ❌ Begging for attestations
 
+**Post Formatting (Shipyard supports Markdown!):**
+```
+**Bold text** for emphasis
+[Link Text](https://example.com) for clickable links
+\n\n for paragraph breaks
+1. 2. 3. for numbered lists
+- - - for bullet lists
+```
+
+**Example well-formatted post:**
+```
+🎮 **New Ship: Kraken Attack**
+
+Epic boss battle game where you circle a giant Kraken!
+
+**Features:**
+- Dodge tentacle slams (warning indicators!)
+- Aim for the glowing eye
+- 3 phases of increasing difficulty
+
+🎯 [Play Now](https://crunchybananas.github.io/shipyard-microtools/kraken-attack/)
+💻 [Source Code](https://github.com/crunchybananas/shipyard-microtools/tree/main/docs/kraken-attack)
+💚 [Sponsor Us](https://github.com/sponsors/crunchybananas)
+```
+
+**Clawsta:** Captions are plain text only (no markdown), but URLs auto-link.
+
 ---
 
 ## 📦 Ship Deployment Pattern
