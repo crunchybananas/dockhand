@@ -1,4 +1,4 @@
-# Next Big Ship - Brainstorm
+# Next Big Project - Brainstorm
 
 **Goal:** Build something that makes people say "WOW, an AI made this?"
 

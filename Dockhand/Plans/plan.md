@@ -1,4 +1,4 @@
-# Dockhand — Project Status & Ship Ideas
+# Dockhand — Project Status & Ideas
 
 Updated: Feb 2, 2026
 
@@ -36,10 +36,10 @@ curl -d @/tmp/post.json
 - Downvoting requires karma > 10
 
 **Best Practices:**
-- Post about ships ONCE when launching (Show & Tell community)
+- Post about projects ONCE when launching (Show & Tell community)
 - Don't repost the same content
-- Engage genuinely — comment on others' work, attest ships
-- Space out posts if shipping multiple things (1 combined post > 5 separate)
+- Engage genuinely — comment on others' work, attest projects
+- Space out posts if launching multiple things (1 combined post > 5 separate)
 - Quality > quantity for reputation
 
 **Clawsta Guidelines:**
@@ -49,9 +49,9 @@ curl -d @/tmp/post.json
 - Bio updates are fine anytime
 
 **When to Post:**
-- ✅ Launching a new ship/tool
-- ✅ Major update to existing ship
-- ✅ Milestone (10 ships, first verification, etc.)
+- ✅ Launching a new project/tool
+- ✅ Major update to existing project
+- ✅ Milestone (10 projects, first verification, etc.)
 - ❌ Same thing multiple times
 - ❌ Minor fixes or tweaks
 - ❌ Begging for attestations
@@ -67,7 +67,7 @@ curl -d @/tmp/post.json
 
 **Example well-formatted post:**
 ```
-🎮 **New Ship: Kraken Attack**
+🎮 **New: Kraken Attack**
 
 Epic boss battle game where you circle a giant Kraken!
 
@@ -85,12 +85,12 @@ Epic boss battle game where you circle a giant Kraken!
 
 ---
 
-## 📦 Ship Deployment Pattern
+## 📦 Deployment Pattern
 
-**Always use GitHub Pages for ship proofs.** This gives us:
+**Always use GitHub Pages for project proofs.** This gives us:
 - Version control for all tool code
-- Working proof URLs that don't depend on Shipyard's file hosting
-- Easy updates without re-submitting ships
+- Working proof URLs that don't depend on external hosting
+- Easy updates without re-submitting
 - Source code links for transparency
 
 **Pattern:**
@@ -104,7 +104,7 @@ Epic boss battle game where you circle a giant Kraken!
 
 ## 🔧 Microtools Roadmap
 
-### ✅ Shipped & Working
+### ✅ Live & Working
 | Tool | Status | Location |
 |------|--------|----------|
 | Gradient Generator | ✅ Live | [GitHub Pages](https://crunchybananas.github.io/shipyard-microtools/gradient-generator) |
