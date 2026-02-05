@@ -170,7 +170,7 @@ final class AppState {
       let (agent, balance, wallet, tokenInfo, communitiesResponse) = try await (agentTask, balanceTask, walletTask, tokenInfoTask, communitiesTask)
       currentAgent = agent
       tokenBalance = balance
-      walletAddress = wallet
+      walletAddress = wallet ?? agent.solanaWallet
       self.tokenInfo = tokenInfo
       self.communities = communitiesResponse.communities
       if let transactions = balance.transactions {

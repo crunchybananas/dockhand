@@ -340,10 +340,18 @@ actor ShipyardClient {
   
   /// Get current wallet address
   func getWallet(apiKey: String) async throws -> String? {
-    struct WalletResponse: Decodable { let wallet: String? }
+    struct WalletResponse: Decodable {
+      let wallet: String?
+      let solanaWallet: String?
+
+      enum CodingKeys: String, CodingKey {
+        case wallet
+        case solanaWallet = "solana_wallet"
+      }
+    }
     let request = try buildRequest(path: "/api/agents/me/wallet", apiKey: apiKey)
     let response: WalletResponse = try await performRequest(request)
-    return response.wallet
+    return response.wallet ?? response.solanaWallet
   }
   
   /// Set Solana wallet address for claiming tokens
