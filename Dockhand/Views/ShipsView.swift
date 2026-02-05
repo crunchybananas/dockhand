@@ -16,12 +16,13 @@ struct ShipsView: View {
   @State private var selectedTab: ShipsTab = .discover
   @State private var statusFilter: ShipStatus? = nil
   @State private var isCreatingShip: Bool = false
-  @State private var showMyShipsOnly: Bool = false
   @State private var searchText: String = ""
   @State private var sortOrder: SortOrder = .newest
+  private let forceMyShipsOnly: Bool
   
   init(showMyShipsOnly: Bool = false) {
-    _showMyShipsOnly = State(initialValue: showMyShipsOnly)
+    forceMyShipsOnly = showMyShipsOnly
+    _selectedTab = State(initialValue: showMyShipsOnly ? .myShips : .discover)
   }
   
   enum ShipsTab: String, CaseIterable {
@@ -63,34 +64,34 @@ struct ShipsView: View {
         
         // Filters Row
         HStack {
-          Picker("Tab", selection: $selectedTab) {
-            ForEach(ShipsTab.allCases, id: \.self) { tab in
-              Text(tab.rawValue).tag(tab)
+          if forceMyShipsOnly {
+            Text("My Ships")
+              .font(.headline)
+          } else {
+            Picker("Tab", selection: $selectedTab) {
+              ForEach(ShipsTab.allCases, id: \.self) { tab in
+                Text(tab.rawValue).tag(tab)
+              }
             }
+            .pickerStyle(.segmented)
+            .frame(width: 200)
           }
-          .pickerStyle(.segmented)
-          .frame(width: 200)
           
           Spacer()
           
-          if selectedTab == .discover {
-            Picker("Status", selection: $statusFilter) {
-              Text("All").tag(nil as ShipStatus?)
-              Text("Pending").tag(ShipStatus.pending as ShipStatus?)
-              Text("Verified").tag(ShipStatus.verified as ShipStatus?)
-            }
-            .frame(width: 120)
-            
-            Picker("Sort", selection: $sortOrder) {
-              ForEach(SortOrder.allCases, id: \.self) { order in
-                Text(order.rawValue).tag(order)
-              }
-            }
-            .frame(width: 130)
+          Picker("Status", selection: $statusFilter) {
+            Text("All").tag(nil as ShipStatus?)
+            Text("Pending").tag(ShipStatus.pending as ShipStatus?)
+            Text("Verified").tag(ShipStatus.verified as ShipStatus?)
           }
+          .frame(width: 120)
           
-          Toggle("My Ships", isOn: $showMyShipsOnly)
-            .toggleStyle(.switch)
+          Picker("Sort", selection: $sortOrder) {
+            ForEach(SortOrder.allCases, id: \.self) { order in
+              Text(order.rawValue).tag(order)
+            }
+          }
+          .frame(width: 130)
           
           Button {
             isCreatingShip = true
@@ -104,7 +105,7 @@ struct ShipsView: View {
         // Search results indicator
         if !searchText.isEmpty {
           HStack {
-            Text("\(searchFilteredShips.count) results for \"\(searchText)\"")
+            Text("\(currentSearchCount) results for \"\(searchText)\"")
               .font(.caption)
               .foregroundStyle(.secondary)
             Spacer()
@@ -117,11 +118,15 @@ struct ShipsView: View {
         
         // Content
         Group {
-          switch selectedTab {
-          case .discover:
-            discoverList
-          case .myShips:
+          if forceMyShipsOnly {
             myShipsList
+          } else {
+            switch selectedTab {
+            case .discover:
+              discoverList
+            case .myShips:
+              myShipsList
+            }
           }
         }
       }
@@ -130,6 +135,7 @@ struct ShipsView: View {
       CreateShipSheet(isPresented: $isCreatingShip)
     }
     .onChange(of: statusFilter) { _, _ in
+      guard selectedTab == .discover, !forceMyShipsOnly else { return }
       Task {
         await appState.loadShips(status: statusFilter, refresh: true)
       }
@@ -153,6 +159,7 @@ struct ShipsView: View {
         } description: {
           Text("No ships match your current filter.")
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
       } else if !searchText.isEmpty && searchFilteredShips.isEmpty {
         ContentUnavailableView {
           Label("No Results", systemImage: "magnifyingglass")
@@ -163,6 +170,7 @@ struct ShipsView: View {
             searchText = ""
           }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
       } else {
         List {
           ForEach(searchFilteredShips) { ship in
@@ -196,18 +204,10 @@ struct ShipsView: View {
       }
     }
   }
-  
-  // Base filtering by owner
-  private var filteredShips: [Ship] {
-    guard showMyShipsOnly, let currentId = appState.currentAgent?.id else {
-      return appState.ships
-    }
-    return appState.ships.filter { $0.agentId == currentId }
-  }
-  
+
   // Search and sort on top of base filter
   private var searchFilteredShips: [Ship] {
-    var ships = filteredShips
+    var ships = appState.ships
     
     // Apply search
     if !searchText.isEmpty {
@@ -234,6 +234,42 @@ struct ShipsView: View {
     
     return ships
   }
+
+  private var filteredMyShips: [Ship] {
+    var ships = appState.myShips
+    if let statusFilter {
+      ships = ships.filter { $0.status == statusFilter }
+    }
+    if !searchText.isEmpty {
+      let query = searchText.lowercased()
+      ships = ships.filter { ship in
+        ship.title.lowercased().contains(query) ||
+        (ship.description?.lowercased().contains(query) ?? false) ||
+        (ship.agentName?.lowercased().contains(query) ?? false) ||
+        (ship.proofUrl?.lowercased().contains(query) ?? false)
+      }
+    }
+    switch sortOrder {
+    case .newest:
+      ships.sort { ($0.createdAt ?? .distantPast) > ($1.createdAt ?? .distantPast) }
+    case .oldest:
+      ships.sort { ($0.createdAt ?? .distantPast) < ($1.createdAt ?? .distantPast) }
+    case .mostAttested:
+      ships.sort { ($0.attestations ?? 0) > ($1.attestations ?? 0) }
+    case .alphabetical:
+      ships.sort { $0.title.lowercased() < $1.title.lowercased() }
+    }
+    return ships
+  }
+
+  private var currentSearchCount: Int {
+    switch selectedTab {
+    case .discover:
+      return searchFilteredShips.count
+    case .myShips:
+      return filteredMyShips.count
+    }
+  }
   
   private var myShipsList: some View {
     Group {
@@ -248,9 +284,21 @@ struct ShipsView: View {
           }
           .buttonStyle(.borderedProminent)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      } else if !searchText.isEmpty && filteredMyShips.isEmpty {
+        ContentUnavailableView {
+          Label("No Results", systemImage: "magnifyingglass")
+        } description: {
+          Text("No ships match \"\(searchText)\"")
+        } actions: {
+          Button("Clear Search") {
+            searchText = ""
+          }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
       } else {
         List {
-          ForEach(appState.myShips) { ship in
+          ForEach(filteredMyShips) { ship in
             NavigationLink {
               ShipDetailView(ship: ship, showAttest: false)
             } label: {

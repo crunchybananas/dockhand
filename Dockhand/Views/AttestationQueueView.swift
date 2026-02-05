@@ -426,6 +426,7 @@ struct AttestationQueueView: View {
         Task { await loadPendingShips() }
       }
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
   }
   
   // MARK: - Computed Properties

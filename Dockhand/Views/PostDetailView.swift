@@ -74,6 +74,7 @@ struct PostDetailView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       } else {
         ContentUnavailableView("Post not found", systemImage: "exclamationmark.triangle")
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
       
       Divider()

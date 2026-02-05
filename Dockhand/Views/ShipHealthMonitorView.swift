@@ -368,6 +368,7 @@ struct ShipHealthMonitorView: View {
     } description: {
       Text("Submit your first ship to start earning $SHIPYARD tokens!")
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
   }
   
   // MARK: - Computed Properties
