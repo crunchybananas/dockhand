@@ -230,7 +230,7 @@ final class LLMService: Sendable {
   // MARK: - Ship Idea Generation
   
   func generateShipIdea(existingShips: [String]) async throws -> ShipIdea? {
-    guard let config = await AgentService().config as AgentConfig?,
+    guard let config = AgentService().config as AgentConfig?,
           let provider = getProvider(config: config) else {
       return nil
     }
@@ -280,7 +280,7 @@ final class LLMService: Sendable {
   // MARK: - Code Generation
   
   func generateMicrotoolCode(idea: ShipIdea) async throws -> MicrotoolCode? {
-    guard let config = await AgentService().config as AgentConfig?,
+    guard let config = AgentService().config as AgentConfig?,
           let provider = getProvider(config: config) else {
       return nil
     }

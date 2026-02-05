@@ -316,7 +316,7 @@ final class AppState {
     
     do {
       let agentId = currentAgent?.id
-      let agentName = currentAgent?.name?.lowercased()
+      let agentName = currentAgent?.name.lowercased()
       let limit = 100
       var offset = 0
       var allShips: [Ship] = []

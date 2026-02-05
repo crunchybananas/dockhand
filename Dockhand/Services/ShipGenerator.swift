@@ -16,7 +16,7 @@ final class ShipGenerator {
   private let microtoolsPath: String
   
   /// Path to the microtools repository
-  static let defaultMicrotoolsPath = "/Users/cloken/code/Dockhand/shipyard-microtools/docs"
+  nonisolated static let defaultMicrotoolsPath = "/Users/cloken/code/Dockhand/shipyard-microtools/docs"
   
   init(llmService: LLMService, microtoolsPath: String = defaultMicrotoolsPath) {
     self.llmService = llmService

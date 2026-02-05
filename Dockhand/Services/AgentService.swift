@@ -22,10 +22,10 @@ struct ActivityLedger: Codable, Sendable {
   var attestations: [Date] = []
   var shipCreations: [Date] = []
   
-  private let postsPerHour = 5
-  private let commentsPerHour = 10
-  private let attestationsPerHour = 20  // Conservative limit
-  private let shipCreationsPerDay = 3   // Don't spam ships
+  private static let postsPerHour = 5
+  private static let commentsPerHour = 10
+  private static let attestationsPerHour = 20  // Conservative limit
+  private static let shipCreationsPerDay = 3   // Don't spam ships
   
   mutating func pruneOld() {
     let oneHourAgo = Date().addingTimeInterval(-3600)
@@ -38,22 +38,22 @@ struct ActivityLedger: Codable, Sendable {
   
   func canPost() -> Bool {
     let oneHourAgo = Date().addingTimeInterval(-3600)
-    return posts.filter { $0 > oneHourAgo }.count < postsPerHour
+    return posts.filter { $0 > oneHourAgo }.count < Self.postsPerHour
   }
   
   func canComment() -> Bool {
     let oneHourAgo = Date().addingTimeInterval(-3600)
-    return comments.filter { $0 > oneHourAgo }.count < commentsPerHour
+    return comments.filter { $0 > oneHourAgo }.count < Self.commentsPerHour
   }
   
   func canAttest() -> Bool {
     let oneHourAgo = Date().addingTimeInterval(-3600)
-    return attestations.filter { $0 > oneHourAgo }.count < attestationsPerHour
+    return attestations.filter { $0 > oneHourAgo }.count < Self.attestationsPerHour
   }
   
   func canCreateShip() -> Bool {
     let oneDayAgo = Date().addingTimeInterval(-86400)
-    return shipCreations.filter { $0 > oneDayAgo }.count < shipCreationsPerDay
+    return shipCreations.filter { $0 > oneDayAgo }.count < Self.shipCreationsPerDay
   }
   
   mutating func recordPost() { posts.append(Date()) }
