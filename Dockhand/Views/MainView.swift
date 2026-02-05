@@ -19,7 +19,6 @@ struct MainView: View {
     case feed = "Feed"
     case myPosts = "My Posts"
     case ships = "Ships"
-    case myShips = "My Ships"
     case attestQueue = "Attest Queue"
     case shipHealth = "Ship Health"
     case microtools = "Microtools"
@@ -34,7 +33,6 @@ struct MainView: View {
       case .feed: return "bubble.left.and.bubble.right"
       case .myPosts: return "person.text.rectangle"
       case .ships: return "ferry"
-      case .myShips: return "person.2.crop.square.stack"
       case .attestQueue: return "checkmark.seal"
       case .shipHealth: return "heart.text.square"
       case .microtools: return "wrench.and.screwdriver"
@@ -72,8 +70,6 @@ struct MainView: View {
           FeedView(showMyPostsOnly: true)
         case .ships:
           ShipsView()
-        case .myShips:
-          ShipsView(showMyShipsOnly: true)
         case .attestQueue:
           AttestationQueueView()
         case .shipHealth:
