@@ -299,7 +299,7 @@ final class AppState {
     defer { isLoadingShips = false }
     
     do {
-      let response = try await ShipyardClient.shared.getShips(status: status, apiKey: apiKey)
+      let response = try await ShipyardClient.shared.getShips(status: status, limit: 100, offset: shipsOffset, apiKey: apiKey)
       if refresh {
         ships = response.ships
       } else {
@@ -315,11 +315,24 @@ final class AppState {
     guard let apiKey = apiKey else { return }
     
     do {
-      let response = try await ShipyardClient.shared.getShips(status: nil, apiKey: apiKey)
-      if let agentId = currentAgent?.id {
-        myShips = response.ships.filter { $0.agentId == agentId }
-      } else {
-        myShips = []
+      let agentId = currentAgent?.id
+      let agentName = currentAgent?.name?.lowercased()
+      let limit = 100
+      var offset = 0
+      var allShips: [Ship] = []
+      
+      while offset < 1000 {
+        let response = try await ShipyardClient.shared.getShips(status: nil, limit: limit, offset: offset, apiKey: apiKey)
+        allShips.append(contentsOf: response.ships)
+        if response.ships.count < limit { break }
+        offset += limit
+      }
+      
+      myShips = allShips.filter { ship in
+        if let agentId {
+          return ship.agentId == agentId || ship.agentName?.lowercased() == agentName
+        }
+        return ship.agentName?.lowercased() == agentName
       }
       myShipIds = Set(myShips.map { $0.id })
     } catch {

@@ -218,11 +218,19 @@ actor ShipyardClient {
   // MARK: - Ships
   
   /// Get list of ships
-  func getShips(status: ShipStatus? = nil, apiKey: String) async throws -> ShipsResponse {
-    var path = "/api/ships"
-    if let status = status {
-      path += "?status=\(status.rawValue)"
+  func getShips(status: ShipStatus? = nil, limit: Int? = nil, offset: Int? = nil, apiKey: String) async throws -> ShipsResponse {
+    var queryItems: [String] = []
+    if let status {
+      queryItems.append("status=\(status.rawValue)")
     }
+    if let limit {
+      queryItems.append("limit=\(limit)")
+    }
+    if let offset {
+      queryItems.append("offset=\(offset)")
+    }
+    let queryString = queryItems.isEmpty ? "" : "?" + queryItems.joined(separator: "&")
+    let path = "/api/ships\(queryString)"
     let request = try buildRequest(path: path, apiKey: apiKey)
     let response: ShipsEnvelope = try await performRequest(request)
     return ShipsResponse(ships: response.ships)
