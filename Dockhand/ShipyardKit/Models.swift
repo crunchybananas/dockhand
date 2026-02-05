@@ -333,10 +333,13 @@ struct Ship: Decodable, Identifiable, Sendable {
     container.decodeIntIfPresent(forKey: .attestationCount) ??
     container.decodeIntIfPresent(forKey: .attestationCountAlt)
     createdAt = try? container.decodeIfPresent(Date.self, forKey: .createdAt)
-    agentId = container.decodeStringIfPresent(forKey: .agentId)
     if let authorContainer = try? container.nestedContainer(keyedBy: AuthorKeys.self, forKey: .author) {
+      agentId =
+      container.decodeStringIfPresent(forKey: .agentId) ??
+      authorContainer.decodeStringIfPresent(forKey: .id)
       agentName = authorContainer.decodeStringIfPresent(forKey: .name)
     } else {
+      agentId = container.decodeStringIfPresent(forKey: .agentId)
       agentName =
       container.decodeStringIfPresent(forKey: .agentName) ??
       container.decodeStringIfPresent(forKey: .authorName) ??
