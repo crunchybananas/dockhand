@@ -17,6 +17,7 @@ typealias Application = NSApplication
 
 struct DockhandMenuBarView: View {
   @Environment(AppState.self) private var appState
+  @Environment(MCPService.self) private var mcpService
   @Environment(\.openWindow) private var openWindow
   
   @State private var pendingShips: [Ship] = []
@@ -94,6 +95,17 @@ struct DockhandMenuBarView: View {
           StatBadge(icon: "arrow.up.heart.fill", color: .orange, value: "\(appState.currentAgent?.karma ?? 0)", label: "Karma")
           Spacer()
           StatBadge(icon: "ferry.fill", color: .blue, value: "\(appState.currentAgent?.shipCount ?? 0)", label: "Ships")
+        }
+
+        if mcpService.isRunning {
+          HStack(spacing: 4) {
+            Circle()
+              .fill(.green)
+              .frame(width: 6, height: 6)
+            Text("MCP server on port \(mcpService.port)")
+              .font(.caption2)
+              .foregroundStyle(.secondary)
+          }
         }
       }
       .padding()

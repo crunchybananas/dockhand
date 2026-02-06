@@ -14,6 +14,7 @@ import SwiftUI
 struct DockhandApp: App {
   @State private var appState = AppState()
   @State private var agentService = AgentService()
+  @State private var mcpService = MCPService()
   
   var body: some Scene {
     // Main Window
@@ -21,11 +22,17 @@ struct DockhandApp: App {
       ContentView()
         .environment(appState)
         .environment(agentService)
+        .environment(mcpService)
         .onAppear {
           agentService.setAppState(appState)
+          mcpService.configure(appState: appState)
           // Auto-start agent if enabled
           if agentService.config.enabled && appState.isAuthenticated {
             agentService.start()
+          }
+          // Auto-start MCP server if enabled via defaults
+          if mcpService.autoStartEnabled {
+            mcpService.start()
           }
         }
     }
@@ -70,6 +77,18 @@ struct DockhandApp: App {
         .keyboardShortcut("a", modifiers: .command)
         .disabled(!appState.isAuthenticated)
       }
+      
+      CommandMenu("MCP") {
+        Button(mcpService.isRunning ? "Stop MCP Server" : "Start MCP Server") {
+          if mcpService.isRunning {
+            mcpService.stop()
+          } else {
+            mcpService.start()
+          }
+        }
+        .keyboardShortcut("m", modifiers: [.command, .shift])
+        .disabled(!appState.isAuthenticated)
+      }
     }
     
     // Menu Bar Extra
@@ -77,6 +96,7 @@ struct DockhandApp: App {
       DockhandMenuBarView()
         .environment(appState)
         .environment(agentService)
+        .environment(mcpService)
     } label: {
       Image(systemName: "ferry.fill")
     }
@@ -87,6 +107,7 @@ struct DockhandApp: App {
       SettingsView()
         .environment(appState)
         .environment(agentService)
+        .environment(mcpService)
     }
   }
 }
@@ -96,6 +117,7 @@ struct DockhandApp: App {
 struct SettingsView: View {
   @Environment(AppState.self) private var appState
   @Environment(AgentService.self) private var agentService
+  @Environment(MCPService.self) private var mcpService
   
   var body: some View {
     TabView {
@@ -107,6 +129,12 @@ struct SettingsView: View {
       AgentSettingsView(agentService: agentService)
         .tabItem {
           Label("Agent", systemImage: "cpu")
+        }
+      
+      MCPSettingsView()
+        .environment(mcpService)
+        .tabItem {
+          Label("MCP Server", systemImage: "network")
         }
       
       AboutSettingsView()
