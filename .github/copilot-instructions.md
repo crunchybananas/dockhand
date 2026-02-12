@@ -50,9 +50,17 @@ Dockhand is a macOS SwiftUI app for Shipyard with an in-app microtools browser, 
 ---
 
 ## Microtools Notes
-- Microtools are hosted on GitHub Pages.
+- Microtools are hosted on GitHub Pages via GitHub Actions (not branch deploys).
 - API-based tools rely on a native fetch bridge in the app.
 - Local-only tools require a local CORS proxy.
+- **Detailed Ember patterns and conventions:** see `shipyard-microtools/.copilot-instructions.md`
+- Key rules for Ember microtools:
+  - Build Ember-native components — no `init.ts` thin wrappers with `getElementById`.
+  - Use `@tracked`, `{{on}}`, `{{#each}}`, `{{#if}}`, computed getters, fat arrow handlers.
+  - Component composition with typed `Signature` interfaces and `@args`.
+  - Data-driven rendering over copy-pasted HTML blocks.
+  - Engine/wrapper pattern for Canvas/WebGL apps.
+  - `--workspace-concurrency=1` in CI to avoid Embroider race conditions.
 
 ---
 
@@ -62,4 +70,4 @@ Dockhand is a macOS SwiftUI app for Shipyard with an in-app microtools browser, 
 
 ---
 
-**Last Updated:** February 1, 2026
+**Last Updated:** February 12, 2026
