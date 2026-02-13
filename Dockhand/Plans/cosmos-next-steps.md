@@ -141,10 +141,21 @@ Replace the zoom-threshold if/else chain with a proper state machine:
 
 ## Priority Order for Next Session
 
-1. **Galaxy box fix** (#1) — most visible visual bug
-2. **Galaxy shader pass** (#5) — makes galaxies look spectacular
-3. **Controls overlay** (#9) — UX is undiscoverable
-4. **Surface exit button** (#4) — users get stuck
-5. **Planet picker** (#3) — better planet variety access
-6. **Shader extraction** (#13) — engine.ts is becoming unwieldy
-7. **Renderer decomposition** (#14) — app.gts is too large
+1. ~~**Galaxy box fix** (#1)~~ — ✅ radial fade + soft glow underlay
+2. ~~**Galaxy shader pass** (#5)~~ — ✅ procedural spiral/elliptical/irregular disc shader
+3. ~~**Controls overlay** (#9)~~ — ✅ H/? key toggle, controls card with all keybindings
+4. ~~**Surface exit button** (#4)~~ — ✅ Return to Orbit button + Escape key
+5. ~~**Planet picker** (#3)~~ — ✅ auto-show sidebar at zoom 100K-500K
+6. ~~**Shader extraction** (#13)~~ — ✅ 13 shaders → `shaders/` dir, engine 1862→844 lines
+7. ~~**Renderer decomposition** (#14)~~ — ✅ 4 renderers extracted, app.gts 1312→696 lines
+
+## Next Priority
+
+1. **Scale state machine** (#15) — formalize galaxy/star/system/surface transitions
+2. **Crossfade layer blending** (#16) — smooth opacity transitions at scale boundaries
+3. **Enhanced click interactions** (#2) — deeper info on click, better selection UX
+4. **Minimap** (#6) — orientation aid for deep zoom
+5. **Star color evolution** (#7) — cosmic time affects spectral colors
+6. **Shareable URLs** (#10) — bookmark coordinates → shareable link
+7. **Accessibility** (#11) — keyboard navigation, screen reader text
+
