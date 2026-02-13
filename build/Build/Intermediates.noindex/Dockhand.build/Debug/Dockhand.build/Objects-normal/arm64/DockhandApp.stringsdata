@@ -1,0 +1,224 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/DockhandApp.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Account",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Agent",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "MCP",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Refresh",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Logout",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stop Agent",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start Agent",
+        "location": {
+          "startingColumn": 56,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Run Agent Cycle Now",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stop MCP Server",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start MCP Server",
+        "location": {
+          "startingColumn": 59,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "General",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 126
+        }
+      },
+      {
+        "comment": "",
+        "key": "Agent",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 131
+        }
+      },
+      {
+        "comment": "",
+        "key": "MCP Server",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 137
+        }
+      },
+      {
+        "comment": "",
+        "key": "About",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 142
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not logged in",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 164
+        }
+      },
+      {
+        "comment": "",
+        "key": "Logged in as",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 156
+        }
+      },
+      {
+        "comment": "",
+        "key": "Token Balance",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 160
+        }
+      },
+      {
+        "comment": "",
+        "key": "Account",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 168
+        }
+      },
+      {
+        "comment": "",
+        "key": "Shipyard Website",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 173
+        }
+      },
+      {
+        "comment": "",
+        "key": "API Documentation",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 176
+        }
+      },
+      {
+        "comment": "",
+        "key": "Trade $SHIPYARD",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 179
+        }
+      },
+      {
+        "comment": "",
+        "key": "Links",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 182
+        }
+      },
+      {
+        "comment": "",
+        "key": "Dockhand",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "Version 1.0.0",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 201
+        }
+      },
+      {
+        "comment": "",
+        "key": "A native macOS client for The Shipyard",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 204
+        }
+      },
+      {
+        "comment": "",
+        "key": "$SHIPYARD Token Contract",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 212
+        }
+      },
+      {
+        "comment": "",
+        "key": "7hhAuM18KxYETuDPLR2q3UHK5KkiQdY1DQNqKGLCpump",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 216
+        }
+      }
+    ]
+  },
+  "version": 1
+}

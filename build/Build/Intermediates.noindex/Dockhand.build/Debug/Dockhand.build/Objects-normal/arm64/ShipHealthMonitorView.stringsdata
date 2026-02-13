@@ -1,0 +1,120 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/ShipHealthMonitorView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Loading your ships...",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ship Health Monitor",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Track your ships' verification progress",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Check Health",
+        "location": {
+          "startingColumn": 15,
+          "startingLine": 118
+        }
+      },
+      {
+        "comment": "",
+        "key": "Refresh",
+        "location": {
+          "startingColumn": 15,
+          "startingLine": 129
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pending Verification",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 161
+        }
+      },
+      {
+        "comment": "",
+        "key": "Verified",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 172
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rejected",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 183
+        }
+      },
+      {
+        "comment": "",
+        "key": "•",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 206
+        }
+      },
+      {
+        "comment": "",
+        "key": "Attestation Progress",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 233
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld of 3",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 239
+        }
+      },
+      {
+        "comment": "",
+        "key": "View Proof",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 264
+        }
+      },
+      {
+        "comment": "",
+        "key": "No Ships Yet",
+        "location": {
+          "startingColumn": 13,
+          "startingLine": 367
+        }
+      },
+      {
+        "comment": "",
+        "key": "Submit your first ship to start earning $SHIPYARD tokens!",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 369
+        }
+      }
+    ]
+  },
+  "version": 1
+}

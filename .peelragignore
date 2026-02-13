@@ -1,0 +1,18 @@
+# Peel RAG ignore patterns
+# Build outputs / generated assets
+shipyard-microtools/docs/**
+shipyard-microtools/**/dist/**
+shipyard-microtools/**/build/**
+
+# Node / package manager artifacts
+**/node_modules/**
+**/.pnpm-store/**
+
+# Frontend framework build dirs
+**/.next/**
+**/.svelte-kit/**
+**/.vite/**
+
+# Xcode / macOS build artifacts
+**/DerivedData/**
+**/xcuserdata/**

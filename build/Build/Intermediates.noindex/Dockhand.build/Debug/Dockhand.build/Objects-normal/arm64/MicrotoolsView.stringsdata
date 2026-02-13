@@ -1,0 +1,136 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/MicrotoolsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Microtools",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 223
+        }
+      },
+      {
+        "comment": "",
+        "key": "Native browser — no CORS restrictions",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 229
+        }
+      },
+      {
+        "comment": "",
+        "key": "API Tools",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 238
+        }
+      },
+      {
+        "comment": "",
+        "key": "Offline Tools",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 245
+        }
+      },
+      {
+        "comment": "",
+        "key": "Select a Microtool",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 290
+        }
+      },
+      {
+        "comment": "",
+        "key": "Choose a tool from the sidebar to view it here.\nAPI-based tools load in-app via native networking.",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 294
+        }
+      },
+      {
+        "comment": "",
+        "key": "API",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 367
+        }
+      },
+      {
+        "comment": "",
+        "key": "Offline",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 376
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reload",
+        "location": {
+          "startingColumn": 15,
+          "startingLine": 349
+        }
+      },
+      {
+        "comment": "",
+        "key": "Hard reload",
+        "location": {
+          "startingColumn": 15,
+          "startingLine": 355
+        }
+      },
+      {
+        "comment": "",
+        "key": "Uses Shipyard API",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 374
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open in Safari",
+        "location": {
+          "startingColumn": 15,
+          "startingLine": 399
+        }
+      },
+      {
+        "comment": "",
+        "key": "Couldn’t load %@",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 425
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reload",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 433
+        }
+      },
+      {
+        "comment": "",
+        "key": "Hard reload",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 436
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open in Safari",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 439
+        }
+      }
+    ]
+  },
+  "version": 1
+}

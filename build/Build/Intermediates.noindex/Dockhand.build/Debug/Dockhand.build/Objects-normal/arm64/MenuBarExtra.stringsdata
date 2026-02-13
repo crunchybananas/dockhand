@@ -1,0 +1,120 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/MenuBarExtra.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "@shipyard.bot",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "MCP server on port %lld",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 105
+        }
+      },
+      {
+        "comment": "",
+        "key": "Quick Attest",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 176
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld pending",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 182
+        }
+      },
+      {
+        "comment": "",
+        "key": "All caught up!",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 213
+        }
+      },
+      {
+        "comment": "",
+        "key": "View all %lld ships...",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 234
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not logged in",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 254
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Dockhand to login or register",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 257
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Dockhand",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 262
+        }
+      },
+      {
+        "comment": "",
+        "key": "Valid",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 399
+        }
+      },
+      {
+        "comment": "",
+        "key": "Invalid",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 412
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unsure",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 425
+        }
+      },
+      {
+        "comment": "",
+        "key": "View proof",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 438
+        }
+      },
+      {
+        "comment": "",
+        "key": "+5",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 473
+        }
+      }
+    ]
+  },
+  "version": 1
+}

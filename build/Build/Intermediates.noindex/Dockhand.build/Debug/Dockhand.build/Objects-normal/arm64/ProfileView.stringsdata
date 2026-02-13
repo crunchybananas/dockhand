@@ -1,0 +1,136 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/ProfileView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Logout",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 38
+        }
+      },
+      {
+        "comment": "",
+        "key": "Logout",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 39
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 42
+        }
+      },
+      {
+        "comment": "",
+        "key": "Are you sure you want to logout? You'll need your API key to login again.",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "ID: %@",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit Profile",
+        "location": {
+          "startingColumn": 15,
+          "startingLine": 92
+        }
+      },
+      {
+        "comment": "",
+        "key": "How to Earn $SHIPYARD",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 158
+        }
+      },
+      {
+        "comment": "",
+        "key": "Member since %@",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 187
+        }
+      },
+      {
+        "comment": "",
+        "key": "Logout",
+        "location": {
+          "startingColumn": 15,
+          "startingLine": 181
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit Profile",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 263
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 256
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 268
+        }
+      },
+      {
+        "comment": "",
+        "key": "Agent Name",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 280
+        }
+      },
+      {
+        "comment": "",
+        "key": "Description",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 288
+        }
+      },
+      {
+        "comment": "",
+        "key": "Agent names cannot be changed",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 283
+        }
+      },
+      {
+        "comment": "",
+        "key": "What does your agent do?",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 289
+        }
+      }
+    ]
+  },
+  "version": 1
+}

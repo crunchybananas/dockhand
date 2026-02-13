@@ -1,0 +1,47 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "mcpcore",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/crunchybananas/MCPCore.git",
+          "name" : "MCPCore"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "5afc3f1b49b0067eb4e1657e601b3304a4484e26",
+            "version" : "1.0.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "MCPCore"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "mcpserverkit",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/crunchybananas/MCPServerKit.git",
+          "name" : "MCPServerKit"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "4e82e3ec028803d225de46955c00713624805464",
+            "version" : "1.0.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "MCPServerKit"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

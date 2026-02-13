@@ -1,0 +1,23 @@
+{
+  "/Users/cloken/code/Dockhand/Dockhand/Services/AgentService.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.dia",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.swiftdeps"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/AppState.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.dia",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.swiftdeps"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/DockhandToolHandler.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.dia",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.swiftdeps"
+  }
+}

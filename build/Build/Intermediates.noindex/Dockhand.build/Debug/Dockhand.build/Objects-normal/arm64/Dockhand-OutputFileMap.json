@@ -1,0 +1,279 @@
+{
+  "" : {
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Dockhand-primary.dia",
+    "emit-module-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Dockhand-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Dockhand-primary-emit-module.dia",
+    "pch" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Dockhand-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Dockhand-primary.swiftdeps"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/ContentView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/DockhandApp.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandApp.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandApp.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandApp.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandApp.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandApp.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandApp.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandApp.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandApp~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/AgentService.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentService~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/AppState.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AppState~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/DockhandToolHandler.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/DockhandToolHandler~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/KeychainService.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/KeychainService.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/KeychainService.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/KeychainService.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/KeychainService.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/KeychainService.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/KeychainService.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/KeychainService.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/KeychainService~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/LLMService.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/LLMService.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/LLMService.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/LLMService.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/LLMService.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/LLMService.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/LLMService.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/LLMService.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/LLMService~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/MCPService.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPService.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPService.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPService.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPService.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPService.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPService.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPService.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPService~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/ShipGenerator.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipGenerator.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipGenerator.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipGenerator.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipGenerator.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipGenerator.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipGenerator.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipGenerator.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipGenerator~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Services/VSCodeService.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/VSCodeService.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/VSCodeService.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/VSCodeService.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/VSCodeService.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/VSCodeService.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/VSCodeService.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/VSCodeService.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/VSCodeService~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/ShipyardKit/Models.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Models.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Models.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Models.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Models.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Models.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Models.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Models.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/Models~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/ShipyardKit/ShipyardClient.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipyardClient.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipyardClient.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipyardClient.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipyardClient.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipyardClient.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipyardClient.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipyardClient.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipyardClient~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/AgentSettingsView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentSettingsView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentSettingsView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentSettingsView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentSettingsView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentSettingsView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentSettingsView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentSettingsView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AgentSettingsView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/AttestationQueueView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AttestationQueueView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AttestationQueueView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AttestationQueueView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AttestationQueueView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AttestationQueueView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AttestationQueueView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AttestationQueueView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AttestationQueueView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/AuthenticationView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AuthenticationView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AuthenticationView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AuthenticationView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AuthenticationView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AuthenticationView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AuthenticationView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AuthenticationView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/AuthenticationView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/FeedView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/FeedView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/FeedView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/FeedView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/FeedView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/FeedView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/FeedView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/FeedView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/FeedView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/MCPSettingsView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPSettingsView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPSettingsView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPSettingsView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPSettingsView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPSettingsView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPSettingsView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPSettingsView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MCPSettingsView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/MainView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MainView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MainView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MainView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MainView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MainView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MainView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MainView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MainView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/MenuBarExtra.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MenuBarExtra.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MenuBarExtra.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MenuBarExtra.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MenuBarExtra.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MenuBarExtra.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MenuBarExtra.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MenuBarExtra.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MenuBarExtra~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/MicrotoolsView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MicrotoolsView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MicrotoolsView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MicrotoolsView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MicrotoolsView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MicrotoolsView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MicrotoolsView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MicrotoolsView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/MicrotoolsView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/PostDetailView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/PostDetailView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/PostDetailView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/PostDetailView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/PostDetailView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/PostDetailView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/PostDetailView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/PostDetailView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/PostDetailView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/ProfileView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ProfileView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ProfileView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ProfileView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ProfileView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ProfileView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ProfileView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ProfileView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ProfileView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/ShipDetailView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipDetailView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipDetailView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipDetailView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipDetailView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipDetailView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipDetailView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipDetailView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipDetailView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/ShipHealthMonitorView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipHealthMonitorView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipHealthMonitorView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipHealthMonitorView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipHealthMonitorView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipHealthMonitorView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipHealthMonitorView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipHealthMonitorView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipHealthMonitorView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/ShipsView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipsView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipsView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipsView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipsView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipsView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipsView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipsView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/ShipsView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/Dockhand/Views/WalletView.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/WalletView.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/WalletView.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/WalletView.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/WalletView.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/WalletView.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/WalletView.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/WalletView.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/WalletView~partial.swiftmodule"
+  },
+  "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/cloken/code/Dockhand/build/Build/Intermediates.noindex/Dockhand.build/Debug/Dockhand.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

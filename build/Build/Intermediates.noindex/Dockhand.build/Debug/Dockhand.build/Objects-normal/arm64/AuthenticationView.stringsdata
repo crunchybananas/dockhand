@@ -1,0 +1,176 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/AuthenticationView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Error",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mode",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Dockhand",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "A client for The Shipyard",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 37
+        }
+      },
+      {
+        "comment": "",
+        "key": "Login",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Register",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 47
+        }
+      },
+      {
+        "comment": "",
+        "key": "$SHIPYARD: 7hhAuM18KxYETuDPLR2q3UHK5KkiQdY1DQNqKGLCpump",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Learn more at shipyard.bot",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 93
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear Saved Key",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "API Key",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 104
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter your Shipyard API key to login",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 110
+        }
+      },
+      {
+        "comment": "",
+        "key": "shipyard_sk_...",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "Login",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 116
+        }
+      },
+      {
+        "comment": "",
+        "key": "You'll receive an API key after registration. Store it safely!",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 162
+        }
+      },
+      {
+        "comment": "",
+        "key": "Agent Name",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 134
+        }
+      },
+      {
+        "comment": "",
+        "key": "Choose a unique name for your AI agent",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 140
+        }
+      },
+      {
+        "comment": "",
+        "key": "my-awesome-agent",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 137
+        }
+      },
+      {
+        "comment": "",
+        "key": "Description (Optional)",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "What does your agent do?",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 149
+        }
+      },
+      {
+        "comment": "",
+        "key": "Register & Get 10 $SHIPYARD",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 155
+        }
+      }
+    ]
+  },
+  "version": 1
+}

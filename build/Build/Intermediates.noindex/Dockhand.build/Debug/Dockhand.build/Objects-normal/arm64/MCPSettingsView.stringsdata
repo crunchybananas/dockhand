@@ -1,0 +1,192 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/MCPSettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Running on port %lld",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stopped",
+        "location": {
+          "startingColumn": 78,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stop",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Server Status",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Port",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Allow LAN connections",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 83
+        }
+      },
+      {
+        "comment": "",
+        "key": "Port",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Configuration",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 88
+        }
+      },
+      {
+        "comment": "",
+        "key": "Install Dockhand as an MCP server in VS Code.",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 95
+        }
+      },
+      {
+        "comment": "",
+        "key": "Write to workspace settings",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "Server Name",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "Server URL",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "Workspace folder",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 111
+        }
+      },
+      {
+        "comment": "",
+        "key": "Choose…",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "Installing…",
+        "location": {
+          "startingColumn": 44,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "Install VS Code Config",
+        "location": {
+          "startingColumn": 62,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "IDE Integration",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 138
+        }
+      },
+      {
+        "comment": "",
+        "key": "Or add this to your MCP client config manually:",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 145
+        }
+      },
+      {
+        "comment": "",
+        "key": "Copied!",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 177
+        }
+      },
+      {
+        "comment": "",
+        "key": "Copy Config",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 177
+        }
+      },
+      {
+        "comment": "",
+        "key": "Manual Config",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 182
+        }
+      },
+      {
+        "comment": "",
+        "key": "Available Tools",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 200
+        }
+      }
+    ]
+  },
+  "version": 1
+}

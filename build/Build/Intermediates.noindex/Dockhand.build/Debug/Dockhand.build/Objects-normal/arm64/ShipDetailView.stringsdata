@@ -1,0 +1,128 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/ShipDetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Ship",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 99
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unable to open proof",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "Attested",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your ship",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 93
+        }
+      },
+      {
+        "comment": "",
+        "key": "• %@",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 36
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Proof",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Status",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Attest Ship",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 71
+        }
+      },
+      {
+        "comment": "",
+        "key": "Verdict",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Valid",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 75
+        }
+      },
+      {
+        "comment": "",
+        "key": "Invalid",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 76
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unsure",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 77
+        }
+      },
+      {
+        "comment": "",
+        "key": "Submit Attestation",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 101
+        }
+      },
+      {
+        "comment": "",
+        "key": "Proof URL is invalid or could not be opened.",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 103
+        }
+      }
+    ]
+  },
+  "version": 1
+}

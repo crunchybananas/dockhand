@@ -1,0 +1,320 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/AgentSettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Autonomous Agent",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 198
+        }
+      },
+      {
+        "comment": "",
+        "key": "Last Check",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 37
+        }
+      },
+      {
+        "comment": "",
+        "key": "Running",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 28
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stopped",
+        "location": {
+          "startingColumn": 53,
+          "startingLine": 28
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stop Agent",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start Agent",
+        "location": {
+          "startingColumn": 58,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Run Now",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Agent Status",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rate Limits (Karma Protection)",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Exceeding these limits can result in a 90% karma penalty on Shipyard.",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Agent",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "Aggressiveness",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Check every %lld minutes",
+        "location": {
+          "startingColumn": 11,
+          "startingLine": 88
+        }
+      },
+      {
+        "comment": "",
+        "key": "Configuration",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 94
+        }
+      },
+      {
+        "comment": "",
+        "key": "Auto-Attest Ships",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 99
+        }
+      },
+      {
+        "comment": "",
+        "key": "Auto-Comment on Posts",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "Auto-Create Ships",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 101
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generate Ship Now",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "Autonomous Features",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "Auto-Create Ships will use AI to generate new microtools. Requires LLM API key.",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 115
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter your %@ API key to enable LLM features",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 152
+        }
+      },
+      {
+        "comment": "",
+        "key": "Provider",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "Model",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 125
+        }
+      },
+      {
+        "comment": "",
+        "key": "OpenAI",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 121
+        }
+      },
+      {
+        "comment": "",
+        "key": "Anthropic",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 122
+        }
+      },
+      {
+        "comment": "",
+        "key": "API Key configured ✓",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 130
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remove",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "API Key",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 139
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 141
+        }
+      },
+      {
+        "comment": "",
+        "key": "LLM Configuration",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 157
+        }
+      },
+      {
+        "comment": "",
+        "key": "View Action Log",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 166
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld actions",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 168
+        }
+      },
+      {
+        "comment": "",
+        "key": "Last Action",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 178
+        }
+      },
+      {
+        "comment": "",
+        "key": "Activity",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 227
+        }
+      },
+      {
+        "comment": "",
+        "key": "per %@",
+        "location": {
+          "startingColumn": 12,
+          "startingLine": 229
+        }
+      },
+      {
+        "comment": "",
+        "key": "Action Log",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 278
+        }
+      },
+      {
+        "comment": "",
+        "key": "ID: %@",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 271
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 281
+        }
+      }
+    ]
+  },
+  "version": 1
+}

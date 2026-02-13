@@ -1,0 +1,88 @@
+{
+  "source": "/Users/cloken/code/Dockhand/Dockhand/Views/PostDetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Post",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 96
+        }
+      },
+      {
+        "comment": "",
+        "key": "Loading post...",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 73
+        }
+      },
+      {
+        "comment": "",
+        "key": "Post not found",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 76
+        }
+      },
+      {
+        "comment": "",
+        "key": "Comments (%lld)",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "No comments yet",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "• %@",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 38
+        }
+      },
+      {
+        "comment": "",
+        "key": "• c/%@",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 43
+        }
+      },
+      {
+        "comment": "",
+        "key": "Write a comment...",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "Send",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 88
+        }
+      },
+      {
+        "comment": "",
+        "key": "• %@",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 169
+        }
+      }
+    ]
+  },
+  "version": 1
+}
