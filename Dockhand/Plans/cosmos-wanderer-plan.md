@@ -169,9 +169,96 @@ Metal gives us **compute shaders** which WebGL2 lacks. This means:
 ## Priority Order
 
 1. ✅ Water effects (planet + terrain shaders)
-2. Solo discoveries (IndexedDB persistence)
-3. Metal planet prototype (single sphere in MTKView)
-4. Firebase discovery sync
-5. Metal terrain with water
-6. Live explorer presence
+2. **CosmosNative Xcode project** — see setup below
+3. Metal planet renderer (single sphere with water shader)
+4. Solo discoveries (IndexedDB persistence in web version)
+5. Metal terrain with water + camera controller
+6. Firebase discovery sync
 7. Full Metal scene port
+
+---
+
+## 4. CosmosNative — Xcode Project Setup
+
+### Project Template
+Use **macOS → App** (SwiftUI lifecycle) — same template as Dockhand.
+- **Product Name:** CosmosWanderer
+- **Team:** (your team)
+- **Organization Identifier:** bot.shipyard
+- **Interface:** SwiftUI
+- **Language:** Swift
+- **Storage:** None
+- **Testing:** Include Tests
+- **Location:** `/Users/cloken/code/CosmosNative`
+
+Then add Metal support manually (no Game template needed — it brings baggage we don't want).
+
+### Why Not the Game Template
+The Xcode Game template creates a `GameViewController` with UIKit/AppKit patterns that fight SwiftUI. We want SwiftUI as the app shell (matching Dockhand's architecture) with an `MTKView` embedded via `NSViewRepresentable`. This gives us native macOS chrome (toolbar, sidebar, panels) wrapping the Metal viewport.
+
+### Project Structure (Matching Dockhand Patterns)
+```
+CosmosNative/
+  CosmosNativeApp.swift          // @main, WindowGroup, .environment()
+  ContentView.swift               // Root view — Metal viewport + overlays
+  Assets.xcassets/
+  CosmosNative.entitlements
+
+  Engine/
+    CosmosRenderer.swift           // MTKViewDelegate — render loop
+    ShaderTypes.h                  // Shared C structs (uniforms, vertex data)
+    Shaders/
+      Common.metal                 // Noise functions, shared utilities
+      Planet.metal                 // Port of planet.frag (sphere + water)
+      Terrain.metal                // Port of terrain.frag (raymarching)
+      Atmosphere.metal             // Port of atmosphere.frag
+      Background.metal             // Starfield background
+      Bloom.metal                  // Compute-based bloom pipeline
+      Water.metal                  // Dedicated water compute (FFT ocean later)
+
+  Services/
+    AppState.swift                 // @Observable central state (like Dockhand)
+    UniverseGenerator.swift        // Port of universe-generator.ts
+    CameraController.swift         // Port of camera-controller.ts
+    InputManager.swift             // Keyboard/mouse/trackpad handling
+
+  Views/
+    MetalView.swift                // NSViewRepresentable wrapping MTKView
+    HUDOverlay.swift               // SwiftUI overlay (compass, altitude, etc.)
+    ControlsOverlay.swift          // Keybinding help card
+
+CosmosNativeTests/
+  CosmosNativeTests.swift
+```
+
+### Key Patterns from Dockhand to Follow
+- `@Observable` + `@MainActor` for state (not ObservableObject)
+- `@Environment` injection from App → Views
+- `@State` for view-local state
+- 2-space indentation, K&R braces
+- Entitlements: `app-sandbox`, `network.client` (for Firebase later)
+
+### Phase 1 — Metal Planet (First Session Target)
+1. Create the Xcode project
+2. `ShaderTypes.h` — define `PlanetUniforms` struct (color, lightDir, planetType, seed, time, resolution)
+3. `Planet.metal` — translate `planet.frag.ts` GLSL → MSL (the enhanced water shader)
+4. `Common.metal` — noise functions (hash31, noise3, fbm)
+5. `CosmosRenderer.swift` — MTKViewDelegate with render pipeline for fullscreen quad
+6. `MetalView.swift` — NSViewRepresentable hosting MTKView
+7. `ContentView.swift` — MetalView filling the window
+8. Result: spinning ocean planet with animated water, Fresnel, specular, foam
+
+### GLSL → MSL Quick Reference
+| GLSL ES 3.0 | Metal Shading Language |
+|---|---|
+| `in vec2 vUV` | `float2 vUV [[stage_in]]` via struct |
+| `out vec4 fragColor` | `return float4(...)` (or `[[color(0)]]`) |
+| `uniform float uTime` | `constant Uniforms& u [[buffer(0)]]` |
+| `vec2/vec3/vec4` | `float2/float3/float4` |
+| `mat2/mat3/mat4` | `float2x2/float3x3/float4x4` |
+| `mix(a, b, t)` | `mix(a, b, t)` (same!) |
+| `smoothstep` | `smoothstep` (same!) |
+| `fract` | `fract` (same!) |
+| `texture(sampler, uv)` | `tex.sample(samp, uv)` |
+| `discard` | `discard_fragment()` |
+| `gl_FragCoord` | `float4 pos [[position]]` in stage_in |
