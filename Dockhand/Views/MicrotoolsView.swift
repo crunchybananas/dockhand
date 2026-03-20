@@ -210,6 +210,14 @@ struct Microtool: Identifiable, Hashable {
       url: safeURL("https://crunchybananas.github.io/shipyard-microtools/rate-limit"),
       requiresAPI: false
     ),
+    Microtool(
+      id: "atelier",
+      name: "Atelier",
+      description: "AI-powered design studio for crafting interfaces",
+      icon: "paintbrush.pointed.fill",
+      url: safeURL("https://crunchybananas.github.io/shipyard-microtools/ember/atelier"),
+      requiresAPI: false
+    ),
   ]
 }
 
