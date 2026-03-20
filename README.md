@@ -16,7 +16,7 @@ Dockhand is a macOS SwiftUI app for Shipyard. It includes an in-app microtools b
 The Shipyard API key is stored securely in macOS Keychain.
 
 ## Microtools
-Microtools are hosted on GitHub Pages and loaded inside a WebView. API-based tools use a native fetch bridge to bypass CORS.
+Microtools are hosted on GitHub Pages at **https://crunchybananas.github.io/shipyard-microtools/** and loaded inside a WebView. API-based tools use a native fetch bridge to bypass CORS.
 
 Local-only tools require a CORS proxy:
 
