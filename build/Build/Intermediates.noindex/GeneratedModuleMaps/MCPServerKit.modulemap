@@ -1,4 +1,0 @@
-module MCPServerKit {
-header "MCPServerKit-Swift.h"
-export *
-}
