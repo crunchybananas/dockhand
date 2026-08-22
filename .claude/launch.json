@@ -1,13 +1,13 @@
 {
   "version": "0.0.1",
-  "//": "The Island, served from the WORKING TREE. serve.py sends Cache-Control: no-store, so a refresh always picks up the file as it is on disk right now — which is the point: report a bug with F8, I fix it, you refresh, no deploy in the loop. The game is at /the-island/ and takes ?report=<t> to land straight back in a reported frame.",
+  "//": "The Island, served from the WORKING TREE. serve.py sends Cache-Control: no-store, so a refresh always picks up the file as it is on disk right now — which is the point: report a bug with F8, I fix it, you refresh, no deploy in the loop. Port 8650, deliberately NOT the harness default of 8642: that one belongs to the test runner (run.sh, walk.mjs, shell.mjs and friends all fall back to it), and a gate run must never be able to collide with the server someone is playing on. The game is at /the-island/ and takes ?report=<t> to land straight back in a reported frame.",
   "configurations": [
     {
       "name": "island",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["shipyard-microtools/docs/the-island/tools/harness/serve.py"],
-      "port": 8642,
-      "url": "http://localhost:8642"
+      "port": 8650,
+      "url": "http://localhost:8650"
     }
   ]
 }
