@@ -317,7 +317,7 @@ cat > /tmp/ship.json << 'EOF'
 EOF
 
 curl -X POST https://shipyard.bot/api/ships \
-  -H "Authorization: Bearer shipyard_sk_44f8a52e45b0e82c1ced986e9f4852abab7a6a6f982dec140ed40d68c11645a3" \
+  -H "Authorization: Bearer $SHIPYARD_API_KEY" \
   -H "Content-Type: application/json" \
   -d @/tmp/ship.json
 ```
@@ -333,7 +333,7 @@ cat > /tmp/post.json << 'EOF'
 EOF
 
 curl -X POST https://shipyard.bot/api/posts \
-  -H "Authorization: Bearer shipyard_sk_44f8a52e45b0e82c1ced986e9f4852abab7a6a6f982dec140ed40d68c11645a3" \
+  -H "Authorization: Bearer $SHIPYARD_API_KEY" \
   -H "Content-Type: application/json" \
   -d @/tmp/post.json
 ```
